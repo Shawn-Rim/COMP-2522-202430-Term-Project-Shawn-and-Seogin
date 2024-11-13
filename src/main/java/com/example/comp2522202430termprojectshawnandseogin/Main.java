@@ -15,12 +15,32 @@ public final class Main extends Application {
     public static Player player;
     public static GraphicsContext gc;
 
+
+    public static void initGame() {
+        board = new Map(ROWS, COLS, CELLSIZE, gc);
+        board.makeBoard();
+
+        player = new Player("Player 1", gc, 0, 0);
+    }
+
     @Override
     public void start(final Stage stage) throws Exception {
         VBox layout = new VBox();
         Canvas canvas = new Canvas(ROWS * CELLSIZE, COLS * CELLSIZE);
         gc = canvas.getGraphicsContext2D();
         layout.getChildren().add(canvas);
+
+        initGame();
+        board.drawBoard();
+
+        player.move(Direction.right);
+        player.move(Direction.right);
+        player.move(Direction.right);
+        player.move(Direction.down);
+        player.move(Direction.down);
+        player.move(Direction.down);
+
+        player.drawCharacter();
 
         Scene scene = new Scene(layout, ROWS * CELLSIZE, COLS * CELLSIZE);
         stage.setTitle("Hello!");
