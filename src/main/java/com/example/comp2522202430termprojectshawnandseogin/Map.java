@@ -45,8 +45,6 @@ public final class Map {
     }
 
     public void drawBoard() {
-        System.out.println(board.size());
-
         for (Tile tile : this.board) {
             Color color;
 
