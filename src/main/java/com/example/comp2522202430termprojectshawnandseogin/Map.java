@@ -33,7 +33,13 @@ public final class Map {
         // TODO: Implement actual board later. This is for testing purpose.
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                this.board.add(new Ground(i, j));
+                if (i == 0 || j == 0 || i == rows - 1 || j == cols - 1) {
+                    this.board.add(new Water(i, j));
+                } else if (j == 4 && i != 1 && i != rows - 2) {
+                    this.board.add(new Soil(i, j));
+                } else {
+                    this.board.add(new Ground(i, j));
+                }
             }
         }
     }
