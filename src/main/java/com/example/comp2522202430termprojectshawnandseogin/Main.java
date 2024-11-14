@@ -12,8 +12,6 @@ import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
-import java.security.cert.Certificate;
-
 public final class Main extends Application {
     public static final int ROWS = 10;
     public static final int COLS = 10;
@@ -36,18 +34,11 @@ public final class Main extends Application {
             @Override
             public void handle(KeyEvent event) {
                 switch(event.getCode()) {
-                    case RIGHT -> {
-                        player.move(Direction.right, board.getBoard());
-                    }
-                    case LEFT -> {
-                        player.move(Direction.left, board.getBoard());
-                    }
-                    case DOWN -> {
-                        player.move(Direction.down, board.getBoard());
-                    }
-                    case UP -> {
-                        player.move(Direction.up, board.getBoard());
-                    }
+                    case RIGHT -> player.move(Direction.right, board.getBoard());
+                    case LEFT -> player.move(Direction.left, board.getBoard());
+                    case DOWN -> player.move(Direction.down, board.getBoard());
+                    case UP -> player.move(Direction.up, board.getBoard());
+                    case SPACE -> player.interact(board.getBoard());
                 }
 
             }
