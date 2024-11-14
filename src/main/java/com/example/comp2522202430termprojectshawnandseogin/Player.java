@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Objects;
 
 public final class Player extends Character {
@@ -14,6 +15,7 @@ public final class Player extends Character {
     private static final Image[] LEFT_IMAGES = new Image[IMAGE_SIZE];
 
     private BigInteger money;
+    private Direction view;
     private Item hand;
     private Image currentFrame;
     private GraphicsContext gc;
@@ -39,6 +41,7 @@ public final class Player extends Character {
 
         this.gc = gc;
         this.money = new BigInteger("0");
+        this.view = Direction.down;
         this.hand = null;
 
         this.currentFrame = FRONT_IMAGES[0];
@@ -60,30 +63,44 @@ public final class Player extends Character {
         }
     }
 
-    public void move(final Direction dir) {
+    private boolean validMove(final List<Tile> board, final int xCoordinate, final int yCoordinate) {
+        for (Tile tile : board) {
+            if (tile.xCoordinate == xCoordinate && tile.yCoordinate == yCoordinate) {
+                return !(tile instanceof Water);
+            }
+        }
+
+        return false;
+    }
+
+    public void move(final Direction dir, final List<Tile> board) {
         switch (dir) {
             case up -> {
-                if (this.yCoordinate > 0) {
+                if (validMove(board, this.xCoordinate, this.yCoordinate - 1)) {
                     this.yCoordinate--;
                 }
+                this.view = Direction.up;
                 animate(BACK_IMAGES);
             }
             case down -> {
-                if (this.yCoordinate < Main.COLS - 1) {
+                if (validMove(board, this.xCoordinate, this.yCoordinate + 1)) {
                     this.yCoordinate++;
                 }
+                this.view = Direction.down;
                 animate(FRONT_IMAGES);
             }
             case left -> {
-                if (this.xCoordinate > 0) {
+                if (validMove(board, this.xCoordinate - 1, this.yCoordinate)) {
                     this.xCoordinate--;
                 }
+                this.view = Direction.left;
                 animate(LEFT_IMAGES);
             }
             case right -> {
-                if (this.xCoordinate < Main.ROWS - 1) {
+                if (validMove(board, this.xCoordinate + 1, this.yCoordinate)) {
                     this.xCoordinate++;
                 }
+                this.view = Direction.right;
                 animate(RIGHT_IMAGES);
             }
             default -> throw new IllegalArgumentException("Invalid Direction.");

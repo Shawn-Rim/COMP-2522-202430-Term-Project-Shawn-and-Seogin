@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class Map {
@@ -27,6 +28,10 @@ public final class Map {
         this.cellSize = cellSize;
         this.board = new ArrayList<Tile>();
         this.graphicsContext = gc;
+    }
+
+    public List<Tile> getBoard() {
+        return Collections.unmodifiableList(this.board);
     }
 
     public void makeBoard() {

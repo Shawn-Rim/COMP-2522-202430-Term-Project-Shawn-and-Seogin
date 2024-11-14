@@ -35,16 +35,16 @@ public final class Main extends Application {
             public void handle(KeyEvent event) {
                 switch(event.getCode()) {
                     case RIGHT -> {
-                        player.move(Direction.right);
+                        player.move(Direction.right, board.getBoard());
                     }
                     case LEFT -> {
-                        player.move(Direction.left);
+                        player.move(Direction.left, board.getBoard());
                     }
                     case DOWN -> {
-                        player.move(Direction.down);
+                        player.move(Direction.down, board.getBoard());
                     }
                     case UP -> {
-                        player.move(Direction.up);
+                        player.move(Direction.up, board.getBoard());
                     }
                 }
             }
