@@ -108,6 +108,38 @@ public final class Player extends Character {
         }
     }
 
+    public void interact(final List<Tile> board) {
+        Tile interactingTile = null;
+        int x = 0;
+        int y = 0;
+
+        switch (this.view) {
+            case up -> y = -1;
+            case down -> y = 1;
+            case left -> x = -1;
+            case right -> x = 1;
+        }
+
+        // Find the tile that the player is looking at
+        for (Tile tile : board) {
+            if (tile.xCoordinate == this.xCoordinate + x && tile.yCoordinate == this.yCoordinate + y) {
+                interactingTile = tile;
+                break;
+            }
+        }
+
+        if (interactingTile == null) {
+            return;
+        }
+
+        // Use tool if interacting tile is Soil and current item in hand is Tool
+        if (interactingTile instanceof Soil && this.hand instanceof Tool) {
+            ((Tool) this.hand).useTool((Soil) interactingTile);
+        } else if (interactingTile.getDecorator() != null && this.hand instanceof Tool) {
+            interactingTile.getDecorator().interact((Tool) this.hand);
+        }
+    }
+
     public void addMoney(BigInteger value) {
         this.money = this.money.add(value.abs());
     }
