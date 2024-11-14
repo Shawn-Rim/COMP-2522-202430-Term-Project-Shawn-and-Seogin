@@ -26,7 +26,7 @@ public final class Main extends Application {
         board = new Map(ROWS, COLS, CELLSIZE, gc);
         board.makeBoard();
 
-        player = new Player("Player 1", gc, 0, 0);
+        player = new Player("Player", gc, 3, 3);
     }
 
     public void movePlayerOnKeyPress() {
@@ -69,10 +69,11 @@ public final class Main extends Application {
         initGame();
 
         // Main game loop: Invokes run() every frame
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), e -> run()));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), e -> run()));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.play();
 
+        // Load Scene
         scene = new Scene(layout, ROWS * CELLSIZE, COLS * CELLSIZE);
         stage.setTitle("Hello!");
         stage.setScene(scene);
