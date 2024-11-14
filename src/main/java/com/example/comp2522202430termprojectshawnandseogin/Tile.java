@@ -12,6 +12,7 @@ public abstract class Tile {
 
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        this.decorator = null;
     }
 
     public int getXCoordinate() {
@@ -20,5 +21,9 @@ public abstract class Tile {
 
     public int getYCoordinate() {
         return this.yCoordinate;
+    }
+
+    public Decorator getDecorator() {
+        return this.decorator;
     }
 }
