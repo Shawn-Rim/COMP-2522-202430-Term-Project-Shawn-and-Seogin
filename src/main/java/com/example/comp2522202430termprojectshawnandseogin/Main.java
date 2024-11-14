@@ -76,7 +76,8 @@ public final class Main extends Application {
 
         movePlayerOnKeyPress();
 
-        player.drawCharacter();
+//        player.drawCharacter();
+        player.draw();
     }
 
     public static void main(String[] args) {
