@@ -9,14 +9,17 @@ public abstract class Character {
     protected GraphicsContext graphicsContext;
     protected int xCoordinate;
     protected int yCoordinate;
+    protected int cellSize;
 
-    public Character(final String name, final GraphicsContext gc, final int x, final int y) {
+    public Character(final String name, final GraphicsContext gc, final int x, final int y, final int cellSize) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Character name cannot be null or empty.");
         } else if (gc == null) {
             throw new IllegalArgumentException("GraphicsContext is null.");
         } else if (x < 0 || x >= Main.ROWS || y < 0 || y >= Main.COLS) {
             throw new IllegalArgumentException("X and Y Coordinate out of bounds.");
+        } else if(cellSize < 0) {
+            throw new IllegalArgumentException("Cell size must be a positive integer.");
         }
 
         this.name = name;
@@ -24,6 +27,7 @@ public abstract class Character {
         this.graphicsContext = gc;
         this.xCoordinate = x;
         this.yCoordinate = y;
+        this.cellSize = cellSize;
     }
 
     public int getXCoordinate() {
@@ -37,7 +41,7 @@ public abstract class Character {
     public void drawCharacter() {
         this.graphicsContext.setFill(Color.RED);
             this.graphicsContext.fillRect(
-                    this.xCoordinate * Main.CELLSIZE, this.yCoordinate * Main.CELLSIZE,
-                    Main.CELLSIZE, Main.CELLSIZE);
+                    this.xCoordinate * this.cellSize, this.yCoordinate * this.cellSize,
+                    this.cellSize, this.cellSize);
     }
 }

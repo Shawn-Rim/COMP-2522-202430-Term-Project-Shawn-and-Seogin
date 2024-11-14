@@ -36,8 +36,8 @@ public final class Player extends Character {
         }
     }
 
-    public Player(final String name, final GraphicsContext gc, final int x, final int y) {
-        super(name, gc, x, y);
+    public Player(final String name, final GraphicsContext gc, final int x, final int y, final int cellSize) {
+        super(name, gc, x, y, cellSize);
 
         this.gc = gc;
         this.money = new BigInteger("0");
@@ -51,7 +51,8 @@ public final class Player extends Character {
 
     @Override
     public void drawCharacter() {
-        gc.drawImage(currentFrame, this.xCoordinate * Main.CELLSIZE, this.yCoordinate * Main.CELLSIZE, Main.CELLSIZE, Main.CELLSIZE);
+        gc.drawImage(currentFrame, this.xCoordinate * this.cellSize, this.yCoordinate * this.cellSize,
+                this.cellSize, this.cellSize);
     }
 
     private void animate(Image[] frames) {

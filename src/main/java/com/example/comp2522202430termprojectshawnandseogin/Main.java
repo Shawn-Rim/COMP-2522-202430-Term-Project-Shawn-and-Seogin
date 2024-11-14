@@ -12,6 +12,8 @@ import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
+import java.security.cert.Certificate;
+
 public final class Main extends Application {
     public static final int ROWS = 10;
     public static final int COLS = 10;
@@ -26,7 +28,7 @@ public final class Main extends Application {
         board = new Map(ROWS, COLS, CELLSIZE, gc);
         board.makeBoard();
 
-        player = new Player("Player", gc, 3, 3);
+        player = new Player("Player", gc, 3, 3, CELLSIZE);
     }
 
     public void movePlayerOnKeyPress() {
@@ -47,6 +49,7 @@ public final class Main extends Application {
                         player.move(Direction.up, board.getBoard());
                     }
                 }
+
             }
         }));
     }
