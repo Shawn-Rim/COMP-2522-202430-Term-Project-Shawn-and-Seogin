@@ -9,7 +9,15 @@ public final class Soil extends Tile {
         this.isPlantable = false;
     }
 
-    public void changeSoil() {
+    public boolean getIsPlantable() {
+        return this.isPlantable;
+    }
+
+    public void setSoilPlantable() {
         this.isPlantable = true;
+    }
+
+    public void setSoilUnPlantable() {
+        this.isPlantable = false;
     }
 }

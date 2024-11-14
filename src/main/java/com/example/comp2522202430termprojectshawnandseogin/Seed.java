@@ -14,6 +14,8 @@ public abstract class Seed extends Tool {
 
     @Override
     public void useTool(Soil soil) {
+        if (soil.getIsPlantable()) {
 
+        }
     }
 }

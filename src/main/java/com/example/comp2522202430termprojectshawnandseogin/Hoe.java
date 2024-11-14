@@ -8,5 +8,10 @@ public final class Hoe extends Tool {
     @Override
     public void useTool(final Soil soil) {
         // TODO: implement useTool
+        if (!soil.getIsPlantable()) {
+            soil.setSoilPlantable();
+        } else {
+            soil.setSoilUnPlantable();
+        }
     }
 }
