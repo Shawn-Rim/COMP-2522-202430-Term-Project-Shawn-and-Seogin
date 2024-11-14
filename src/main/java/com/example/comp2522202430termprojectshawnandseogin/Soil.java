@@ -23,7 +23,7 @@ public final class Soil extends Tile {
         this.isPlantable = !this.isPlantable;
     }
 
-    public void waterSoil(final WateringCan can) {
+    public void waterSoil() {
         this.isWatered = true;
     }
 }
