@@ -11,7 +11,7 @@ public final class Planted extends Decorator {
     }
 
     @Override
-    public void interact() {
+    public void interact(final Tool tool) {
 
     }
 }
