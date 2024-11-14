@@ -6,7 +6,7 @@ public final class Grass extends Decorator {
     }
 
     @Override
-    public void interact() {
+    public void interact(final Tool tool) {
 
     }
 }
