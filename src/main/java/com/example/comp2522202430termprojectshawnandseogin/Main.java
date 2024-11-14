@@ -29,26 +29,6 @@ public final class Main extends Application {
         player = new Player("Player 1", gc, 0, 0);
     }
 
-    @Override
-    public void start(final Stage stage) throws Exception {
-        VBox layout = new VBox();
-        Canvas canvas = new Canvas(ROWS * CELLSIZE, COLS * CELLSIZE);
-        gc = canvas.getGraphicsContext2D();
-        layout.getChildren().add(canvas);
-
-        initGame();
-
-        // Main game loop: Invokes run() every frame
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), e -> run()));
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
-
-        scene = new Scene(layout, ROWS * CELLSIZE, COLS * CELLSIZE);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
-    }
-
     public void movePlayerOnKeyPress() {
         scene.setOnKeyPressed((new EventHandler<KeyEvent>() {
             @Override
@@ -76,8 +56,27 @@ public final class Main extends Application {
 
         movePlayerOnKeyPress();
 
-//        player.drawCharacter();
-        player.draw();
+        player.drawCharacter();
+    }
+
+    @Override
+    public void start(final Stage stage) throws Exception {
+        VBox layout = new VBox();
+        Canvas canvas = new Canvas(ROWS * CELLSIZE, COLS * CELLSIZE);
+        gc = canvas.getGraphicsContext2D();
+        layout.getChildren().add(canvas);
+
+        initGame();
+
+        // Main game loop: Invokes run() every frame
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), e -> run()));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
+
+        scene = new Scene(layout, ROWS * CELLSIZE, COLS * CELLSIZE);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {
