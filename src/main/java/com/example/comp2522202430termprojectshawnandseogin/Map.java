@@ -1,11 +1,14 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public final class Map {
     private final int rows;
@@ -50,20 +53,26 @@ public final class Map {
     }
 
     public void drawBoard() {
+
+        // Draw each tile
         for (Tile tile : this.board) {
-            Color color;
+            Image image;
 
             if (tile instanceof Ground) {
-                color = Color.GREEN;
+                image = Ground.getMiddle();
             } else if (tile instanceof Water) {
-                color = Color.BLUE;
+                image = Water.getWater();
             } else {
-                color = Color.SANDYBROWN;
+                image = Soil.getNonPlantable()[0]; // Simplified for demo
             }
 
-            this.graphicsContext.setFill(color);
-            this.graphicsContext.fillRect(
-                    tile.getXCoordinate() * cellSize, tile.getYCoordinate() * cellSize, cellSize, cellSize);
+            graphicsContext.drawImage(
+                    image,
+                    tile.getXCoordinate() * cellSize,
+                    tile.getYCoordinate() * cellSize,
+                    cellSize,
+                    cellSize
+            );
         }
     }
 }
