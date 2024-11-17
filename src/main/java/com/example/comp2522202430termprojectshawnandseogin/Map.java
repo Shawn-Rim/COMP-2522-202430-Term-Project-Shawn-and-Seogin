@@ -42,11 +42,11 @@ public final class Map {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if (i == 0 || j == 0 || i == rows - 1 || j == cols - 1) {
-                    this.board.add(new Water(i, j));
+                    this.board.add(new Water(i, j, this.cellSize));
                 } else if (j == 4 && i != 1 && i != rows - 2) {
-                    this.board.add(new Soil(i, j));
+                    this.board.add(new Soil(i, j, this.cellSize));
                 } else {
-                    this.board.add(new Ground(i, j));
+                    this.board.add(new Ground(i, j, this.cellSize));
                 }
             }
         }
@@ -56,23 +56,7 @@ public final class Map {
 
         // Draw each tile
         for (Tile tile : this.board) {
-            Image image;
-
-            if (tile instanceof Ground) {
-                image = Ground.getMiddle();
-            } else if (tile instanceof Water) {
-                image = Water.getWater();
-            } else {
-                image = Soil.getNonPlantable()[0]; // Simplified for demo
-            }
-
-            graphicsContext.drawImage(
-                    image,
-                    tile.getXCoordinate() * cellSize,
-                    tile.getYCoordinate() * cellSize,
-                    cellSize,
-                    cellSize
-            );
+            tile.drawTile(this.graphicsContext);
         }
     }
 }
