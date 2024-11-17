@@ -77,28 +77,28 @@ public final class Player extends Character {
     public void move(final Direction dir, final List<Tile> board) {
         switch (dir) {
             case up -> {
-                if (validMove(board, this.xCoordinate, this.yCoordinate - 1)) {
+                if (this.view == dir && validMove(board, this.xCoordinate, this.yCoordinate - 1)) {
                     this.yCoordinate--;
                 }
                 this.view = Direction.up;
                 animate(BACK_IMAGES);
             }
             case down -> {
-                if (validMove(board, this.xCoordinate, this.yCoordinate + 1)) {
+                if (this.view == dir && validMove(board, this.xCoordinate, this.yCoordinate + 1)) {
                     this.yCoordinate++;
                 }
                 this.view = Direction.down;
                 animate(FRONT_IMAGES);
             }
             case left -> {
-                if (validMove(board, this.xCoordinate - 1, this.yCoordinate)) {
+                if (this.view == dir && validMove(board, this.xCoordinate - 1, this.yCoordinate)) {
                     this.xCoordinate--;
                 }
                 this.view = Direction.left;
                 animate(LEFT_IMAGES);
             }
             case right -> {
-                if (validMove(board, this.xCoordinate + 1, this.yCoordinate)) {
+                if (this.view == dir && validMove(board, this.xCoordinate + 1, this.yCoordinate)) {
                     this.xCoordinate++;
                 }
                 this.view = Direction.right;
