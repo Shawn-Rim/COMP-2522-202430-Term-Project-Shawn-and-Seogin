@@ -43,6 +43,7 @@ public final class Ground extends Tile {
             case middle -> image = MIDDLE_IMAGE;
         }
 
+        Water.drawWater(gc, this.xCoordinate, this.yCoordinate, this.cellSize);
         gc.drawImage(image, this.xCoordinate * this.cellSize, this.yCoordinate * this.cellSize, this.cellSize, this.cellSize);
     }
 }
