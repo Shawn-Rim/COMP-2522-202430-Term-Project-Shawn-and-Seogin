@@ -18,6 +18,7 @@ public final class Main extends Application {
     public static final int CELLSIZE = 50;
     public static Map board;
     public static Player player;
+    public static WaterWell waterWell;
     public static GraphicsContext gc;
     public static Scene scene;
 
@@ -27,6 +28,7 @@ public final class Main extends Application {
         board.makeBoard();
 
         player = new Player("Player", gc, 3, 3, CELLSIZE);
+        waterWell = new WaterWell(gc, CELLSIZE);
     }
 
     public void movePlayerOnKeyPress() {
@@ -47,6 +49,7 @@ public final class Main extends Application {
 
     public void run() {
         board.drawBoard();
+        waterWell.drawWaterWell();
 
         movePlayerOnKeyPress();
 
