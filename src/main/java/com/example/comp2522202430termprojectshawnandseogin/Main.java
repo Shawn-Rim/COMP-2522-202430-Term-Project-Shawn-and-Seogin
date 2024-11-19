@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
@@ -18,7 +19,6 @@ public final class Main extends Application {
     public static final int CELLSIZE = 50;
     public static Map board;
     public static Player player;
-    public static WaterWell waterWell;
     public static GraphicsContext gc;
     public static Scene scene;
 
@@ -28,7 +28,6 @@ public final class Main extends Application {
         board.makeBoard();
 
         player = new Player("Player", gc, 3, 3, CELLSIZE);
-        waterWell = new WaterWell(gc, CELLSIZE);
     }
 
     public void movePlayerOnKeyPress() {
@@ -49,17 +48,25 @@ public final class Main extends Application {
 
     public void run() {
         board.drawBoard();
-        waterWell.drawWaterWell();
 
         movePlayerOnKeyPress();
 
         player.drawCharacter();
+
+        // Tool box
+        gc.setFill(Color.BURLYWOOD);
+        gc.fillRect(0, COLS * CELLSIZE, ROWS * CELLSIZE, CELLSIZE);
+
+        for (int i = 3; i < ROWS * CELLSIZE; i = i + CELLSIZE) {
+            gc.setFill(Color.MOCCASIN);
+            gc.fillRoundRect(i, COLS * CELLSIZE + 3, CELLSIZE - 6, CELLSIZE - 6, 25, 25);
+        }
     }
 
     @Override
     public void start(final Stage stage) throws Exception {
         VBox layout = new VBox();
-        Canvas canvas = new Canvas(ROWS * CELLSIZE, COLS * CELLSIZE);
+        Canvas canvas = new Canvas(ROWS * CELLSIZE, COLS * CELLSIZE + CELLSIZE);
         gc = canvas.getGraphicsContext2D();
         layout.getChildren().add(canvas);
 
@@ -71,7 +78,7 @@ public final class Main extends Application {
 		timeline.play();
 
         // Load Scene
-        scene = new Scene(layout, ROWS * CELLSIZE, COLS * CELLSIZE);
+        scene = new Scene(layout, ROWS * CELLSIZE, COLS * CELLSIZE + CELLSIZE);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
