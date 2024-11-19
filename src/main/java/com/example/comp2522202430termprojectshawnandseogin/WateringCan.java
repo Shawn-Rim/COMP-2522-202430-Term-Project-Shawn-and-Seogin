@@ -9,7 +9,7 @@ public final class WateringCan extends Tool {
     }
 
 
-    public void fillWater(WaterWell waterWell) {
+    public void fillWater() {
         this.remainingUses = 3;
     }
 

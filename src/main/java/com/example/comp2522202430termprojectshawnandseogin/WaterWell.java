@@ -21,6 +21,8 @@ public final class WaterWell extends Decorator {
 
     @Override
     public void interact(final Tool tool) {
-
+        if (tool instanceof WateringCan) {
+            ((WateringCan)tool).fillWater();
+        }
     }
 }
