@@ -67,7 +67,7 @@ public final class Player extends Character {
     private boolean validMove(final List<Tile> board, final int xCoordinate, final int yCoordinate) {
         for (Tile tile : board) {
             if (tile.xCoordinate == xCoordinate && tile.yCoordinate == yCoordinate) {
-                return !(tile instanceof Water);
+                return !(tile instanceof BlockTile);
             }
         }
 
