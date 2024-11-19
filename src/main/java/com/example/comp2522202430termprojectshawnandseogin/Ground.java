@@ -45,5 +45,6 @@ public final class Ground extends Tile {
 
         Water.drawWater(gc, this.xCoordinate, this.yCoordinate, this.cellSize);
         gc.drawImage(image, this.xCoordinate * this.cellSize, this.yCoordinate * this.cellSize, this.cellSize, this.cellSize);
+        super.drawTile(gc);
     }
 }

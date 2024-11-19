@@ -33,5 +33,13 @@ public abstract class Tile {
         return this.decorator;
     }
 
-    public abstract void drawTile(GraphicsContext gc);
+    public void setDecorator(final Decorator decorator) {
+        this.decorator = decorator;
+    }
+
+    public void drawTile(final GraphicsContext gc) {
+        if (this.decorator != null) {
+            this.decorator.drawDecorator(gc, xCoordinate, yCoordinate, cellSize);
+        }
+    }
 }

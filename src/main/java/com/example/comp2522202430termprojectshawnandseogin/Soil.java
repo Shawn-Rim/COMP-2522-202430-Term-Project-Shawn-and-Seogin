@@ -71,5 +71,6 @@ public final class Soil extends Tile {
         }
 
         gc.drawImage(image, this.xCoordinate * this.cellSize, this.yCoordinate * this.cellSize, this.cellSize, this.cellSize);
+        super.drawTile(gc);
     }
 }

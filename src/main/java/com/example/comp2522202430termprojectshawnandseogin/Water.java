@@ -15,6 +15,7 @@ public final class Water extends Tile implements BlockTile{
     @Override
     public void drawTile(final GraphicsContext gc) {
         drawWater(gc, this.xCoordinate, this.yCoordinate, this.cellSize);
+        super.drawTile(gc);
     }
 
     public static void drawWater(final GraphicsContext gc, final int x, final int y, final int cellSize) {
