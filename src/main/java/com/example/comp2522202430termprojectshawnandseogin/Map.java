@@ -43,7 +43,22 @@ public final class Map {
             for (int j = 0; j < cols; j++) {
                 if (i == 0 || j == 0 || i == rows - 1 || j == cols - 1) {
                     this.board.add(new Water(i, j, this.cellSize));
-                } else if (j == 4 && i != 1 && i != rows - 2) {
+                } else if (i == 3 && j == 3) {
+                    Water water = new Water(i, j, this.cellSize);
+                    water.setDecorator(new WaterWell());
+                    this.board.add(water);
+                } else if (i > 4 && i <= 7 && j > 1 && j <= 3) {
+                    Water water = new Water(i, j, this.cellSize);
+
+                    if (i == 7 && j == 3) {
+                        water.setDecorator(new House(true));
+                    } else  {
+                        water.setDecorator(new House(false));
+                    }
+
+                    this.board.add(water);
+                }
+                else if (j == 4 && i != 1 && i != rows - 2) {
                     this.board.add(new Soil(i, j, this.cellSize));
                 } else if (i == 1 && j == 1) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.leftTop));
@@ -53,8 +68,7 @@ public final class Map {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.leftBottom));
                 } else if (i == rows-2 && j == cols - 2) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.rightBottom));
-                }
-                else if (j == 1) {
+                } else if (j == 1) {
                     this.board.add(new Ground(i, j , this.cellSize, GroundDirection.top));
                 } else if (i == 1) {
                     this.board.add(new Ground(i, j , this.cellSize, GroundDirection.left));
@@ -62,8 +76,7 @@ public final class Map {
                     this.board.add(new Ground(i, j , this.cellSize, GroundDirection.right));
                 } else if (j == cols-2) {
                     this.board.add(new Ground(i, j , this.cellSize, GroundDirection.bottom));
-                }
-                else {
+                } else {
                     this.board.add(new Ground(i, j, this.cellSize));
                 }
             }
@@ -71,7 +84,6 @@ public final class Map {
     }
 
     public void drawBoard() {
-
         // Draw each tile
         for (Tile tile : this.board) {
             tile.drawTile(this.graphicsContext);
