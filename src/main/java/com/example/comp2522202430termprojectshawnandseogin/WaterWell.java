@@ -6,19 +6,17 @@ import javafx.scene.image.Image;
 import java.util.Objects;
 
 public final class WaterWell extends Decorator {
-    private final static int X_COORDINATE = 4;
-    private final static int Y_COORDINATE = 3;
-    private GraphicsContext gc;
-    private final int cellSize;
-    public WaterWell(final GraphicsContext gc, final int cellSize) {
+    private final static Image WATERWELL = new Image(Objects.requireNonNull(WaterWell.class.getResourceAsStream("/WaterWell/Water well.png")));
+    private final static Image GROUND = new Image(Objects.requireNonNull(WaterWell.class.getResourceAsStream("/Ground/middle.png")));
+
+    public WaterWell() {
         super();
-        this.gc = gc;
-        this.cellSize = cellSize;
     }
 
-    public void drawWaterWell() {
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/WaterWell/Water well.png")));
-        gc.drawImage(image, X_COORDINATE * this.cellSize, Y_COORDINATE * this.cellSize, this.cellSize, this.cellSize);
+    @Override
+    public void drawDecorator(final GraphicsContext gc, final int x, final int y, final int cellSize) {
+        gc.drawImage(GROUND, x * cellSize, y * cellSize, cellSize, cellSize);
+        gc.drawImage(WATERWELL, x * cellSize, y * cellSize, cellSize, cellSize);
     }
 
     @Override
