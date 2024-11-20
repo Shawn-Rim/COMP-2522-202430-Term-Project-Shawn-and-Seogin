@@ -20,7 +20,10 @@ public final class Player extends Character {
     private static final Image[] BACK_HOE = new Image[IMAGE_SIZE];
     private static final Image[] RIGHT_HOE = new Image[IMAGE_SIZE];
     private static final Image[] LEFT_HOE = new Image[IMAGE_SIZE];
-
+    private static final Image[] FRONT_WATER_CAN = new Image[IMAGE_SIZE];
+    private static final Image[] BACK_WATER_CAN = new Image[IMAGE_SIZE];
+    private static final Image[] RIGHT_WATER_CAN = new Image[IMAGE_SIZE];
+    private static final Image[] LEFT_WATER_CAN = new Image[IMAGE_SIZE];
 
     private BigInteger money;
     private Direction view;
@@ -49,6 +52,14 @@ public final class Player extends Character {
                     Player.class.getResourceAsStream("/Player/Player_right_hoe/rightHoe" + i + ".png")));
             LEFT_HOE[i - 1] = new Image(Objects.requireNonNull(
                     Player.class.getResourceAsStream("/Player/Player_left_hoe/leftHoe" + i + ".png")));
+            FRONT_WATER_CAN[i - 1] = new Image(Objects.requireNonNull(
+                    Player.class.getResourceAsStream("/Player/Player_front_watercan/frontWatercan" + i + ".png")));
+            BACK_WATER_CAN[i - 1] = new Image(Objects.requireNonNull(
+                    Player.class.getResourceAsStream("/Player/Player_back_watercan/backWatercan" + i + ".png")));
+            RIGHT_WATER_CAN[i - 1] = new Image(Objects.requireNonNull(
+                    Player.class.getResourceAsStream("/Player/Player_right_watercan/rightWatercan" + i + ".png")));
+            LEFT_WATER_CAN[i - 1] = new Image(Objects.requireNonNull(
+                    Player.class.getResourceAsStream("/Player/Player_left_watercan/leftWatercan" + i + ".png")));
         }
     }
 
@@ -58,7 +69,7 @@ public final class Player extends Character {
         this.gc = gc;
         this.money = new BigInteger("0");
         this.view = Direction.down;
-        this.hand = new Hoe();
+        this.hand = new WateringCan();
 
         this.currentFrame = FRONT_IMAGES[0];
         this.frameIndex = 0;
@@ -179,11 +190,20 @@ public final class Player extends Character {
         // Use tool if interacting tile is Soil and current item in hand is Tool
         if (interactingTile instanceof Soil && this.hand instanceof Tool) {
             ((Tool) this.hand).useTool((Soil) interactingTile);
-            switch (this.view){
-                case down -> playFullSetAnimation(FRONT_HOE);
-                case up -> playFullSetAnimation(BACK_HOE);
-                case right -> playFullSetAnimation(RIGHT_HOE);
-                case left -> playFullSetAnimation(LEFT_HOE);
+            if (this.hand instanceof Hoe) {
+                switch (this.view){
+                    case down -> playFullSetAnimation(FRONT_HOE);
+                    case up -> playFullSetAnimation(BACK_HOE);
+                    case right -> playFullSetAnimation(RIGHT_HOE);
+                    case left -> playFullSetAnimation(LEFT_HOE);
+                }
+            } else {
+                switch (this.view) {
+                    case down -> playFullSetAnimation(FRONT_WATER_CAN);
+                    case up -> playFullSetAnimation(BACK_WATER_CAN);
+                    case right -> playFullSetAnimation(RIGHT_WATER_CAN);
+                    case left -> playFullSetAnimation(LEFT_WATER_CAN);
+                }
             }
         } else if (interactingTile.getDecorator() != null && this.hand instanceof Tool) {
             interactingTile.getDecorator().interact((Tool) this.hand);
