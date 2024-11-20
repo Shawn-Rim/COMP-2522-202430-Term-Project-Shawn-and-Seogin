@@ -6,6 +6,9 @@ import javafx.scene.image.Image;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 public final class Player extends Character {
     private static final int IMAGE_SIZE = 8;
@@ -13,6 +16,11 @@ public final class Player extends Character {
     private static final Image[] BACK_IMAGES = new Image[IMAGE_SIZE];
     private static final Image[] RIGHT_IMAGES = new Image[IMAGE_SIZE];
     private static final Image[] LEFT_IMAGES = new Image[IMAGE_SIZE];
+    private static final Image[] FRONT_HOE = new Image[IMAGE_SIZE];
+    private static final Image[] BACK_HOE = new Image[IMAGE_SIZE];
+    private static final Image[] RIGHT_HOE = new Image[IMAGE_SIZE];
+    private static final Image[] LEFT_HOE = new Image[IMAGE_SIZE];
+
 
     private BigInteger money;
     private Direction view;
@@ -33,6 +41,14 @@ public final class Player extends Character {
                     Player.class.getResourceAsStream("/Player/Player_right/right" + i + ".png")));
             LEFT_IMAGES[i - 1] = new Image(Objects.requireNonNull(
                     Player.class.getResourceAsStream("/Player/Player_left/left" + i + ".png")));
+            FRONT_HOE[i - 1] = new Image(Objects.requireNonNull(
+                    Player.class.getResourceAsStream("/Player/Player_front_hoe/frontHoe" + i + ".png")));
+            BACK_HOE[i - 1] = new Image(Objects.requireNonNull(
+                    Player.class.getResourceAsStream("/Player/Player_back_hoe/backHoe" + i + ".png")));
+            RIGHT_HOE[i - 1] = new Image(Objects.requireNonNull(
+                    Player.class.getResourceAsStream("/Player/Player_right_hoe/rightHoe" + i + ".png")));
+            LEFT_HOE[i - 1] = new Image(Objects.requireNonNull(
+                    Player.class.getResourceAsStream("/Player/Player_left_hoe/leftHoe" + i + ".png")));
         }
     }
 
@@ -42,7 +58,7 @@ public final class Player extends Character {
         this.gc = gc;
         this.money = new BigInteger("0");
         this.view = Direction.down;
-        this.hand = null;
+        this.hand = new Hoe();
 
         this.currentFrame = FRONT_IMAGES[0];
         this.frameIndex = 0;
@@ -108,6 +124,30 @@ public final class Player extends Character {
         }
     }
 
+    private void playFullSetAnimation(Image[] frames) {
+        Timeline timeline = new Timeline();
+
+        for (int i = 0; i < IMAGE_SIZE; i++) {
+            final int index = i;
+            KeyFrame keyFrame = new KeyFrame(Duration.millis(100 * (i + 1)), e -> {
+                currentFrame = frames[index];
+                drawCharacter();
+            });
+            timeline.getKeyFrames().add(keyFrame);
+        }
+
+        timeline.setOnFinished(e -> {
+            currentFrame = FRONT_IMAGES[0];
+            drawCharacter();
+        });
+
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
+
+
+
     public void interact(final List<Tile> board) {
         Tile interactingTile = null;
         int x = 0;
@@ -135,6 +175,12 @@ public final class Player extends Character {
         // Use tool if interacting tile is Soil and current item in hand is Tool
         if (interactingTile instanceof Soil && this.hand instanceof Tool) {
             ((Tool) this.hand).useTool((Soil) interactingTile);
+            switch (this.view){
+                case down -> playFullSetAnimation(FRONT_HOE);
+                case up -> playFullSetAnimation(BACK_HOE);
+                case right -> playFullSetAnimation(RIGHT_HOE);
+                case left -> playFullSetAnimation(LEFT_HOE);
+            }
         } else if (interactingTile.getDecorator() != null && this.hand instanceof Tool) {
             interactingTile.getDecorator().interact((Tool) this.hand);
         }
