@@ -15,7 +15,7 @@ public final class WateringCan extends Tool {
 
     @Override
     public void useTool(Soil soil) {
-        if (this.remainingUses > 0) {
+        if (this.remainingUses > 0 && soil.getIsPlantable()) {
             soil.waterSoil();
             this.remainingUses--;
         }
