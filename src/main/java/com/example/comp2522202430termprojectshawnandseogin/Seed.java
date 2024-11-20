@@ -2,6 +2,7 @@ package com.example.comp2522202430termprojectshawnandseogin;
 
 public abstract class Seed extends Tool {
     protected double growthRate;
+    private int quantity = 0;
 
     public Seed(final String name, final String buyPrice, final double growthRate) {
         if (Double.compare(growthRate, 0.0) <= 0) {
@@ -14,8 +15,8 @@ public abstract class Seed extends Tool {
 
     @Override
     public void useTool(Soil soil) {
-        if (soil.getIsPlantable()) {
-
+        if (soil.getIsPlantable() && this.quantity > 0) {
+            this.quantity--;
         }
     }
 }
