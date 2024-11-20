@@ -137,15 +137,19 @@ public final class Player extends Character {
         }
 
         timeline.setOnFinished(e -> {
-            currentFrame = FRONT_IMAGES[0];
+            switch(this.view){
+                case down -> currentFrame = FRONT_IMAGES[0];
+                case up -> currentFrame = BACK_IMAGES[0];
+                case right -> currentFrame = RIGHT_IMAGES[0];
+                case left -> currentFrame = LEFT_IMAGES[0];
+            }
+
             drawCharacter();
         });
 
         timeline.setCycleCount(1);
         timeline.play();
     }
-
-
 
 
     public void interact(final List<Tile> board) {
