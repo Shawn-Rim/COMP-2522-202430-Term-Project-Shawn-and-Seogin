@@ -19,6 +19,7 @@ public final class Main extends Application {
     public static final int CELLSIZE = 50;
     public static Map board;
     public static Player player;
+    public static NPC NPC;
     public static GraphicsContext gc;
     public static Scene scene;
 
@@ -28,6 +29,7 @@ public final class Main extends Application {
         board.makeBoard();
 
         player = new Player("Player", gc, 3, 3, CELLSIZE);
+        NPC = new NPC("Racooondog", gc, 7, 7, CELLSIZE);
     }
 
     public void movePlayerOnKeyPress() {
@@ -50,7 +52,7 @@ public final class Main extends Application {
         board.drawBoard();
 
         movePlayerOnKeyPress();
-
+        NPC.drawCharacter();
         player.drawCharacter();
 
         // Tool box

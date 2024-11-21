@@ -4,4 +4,9 @@ public final class Carrot extends Crop {
     public Carrot() {
         super("Carrot", "1000");
     }
+
+    @Override
+    public void drawImage() {
+
+    }
 }
