@@ -1,5 +1,6 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.Objects;
@@ -10,7 +11,7 @@ public final class Eggplant extends Crop {
     static {
         for (int i = 1; i <= IMAGE_SIZE; i++) {
             EGGPLANT_IMAGE[i - 1] = new Image(Objects.requireNonNull(Eggplant.class.
-                    getResourceAsStream("/FarmingPlants/EggPlant"+ i + ".png")));
+                    getResourceAsStream("/FarmingPlants/EggPlant" + i + ".png")));
         }
     }
     public Eggplant() {
@@ -18,7 +19,8 @@ public final class Eggplant extends Crop {
     }
 
     @Override
-    public void drawImage() {
-
+    public void drawItem(final GraphicsContext gc, final int x, final int y, final int cellSize) {
+        gc.drawImage(EGGPLANT_IMAGE[IMAGE_SIZE - 1],
+                x * cellSize, y * cellSize, cellSize, cellSize);
     }
 }

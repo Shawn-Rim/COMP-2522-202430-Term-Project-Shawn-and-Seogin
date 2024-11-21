@@ -1,12 +1,19 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
-public final class Carrot extends Crop {
-    public Carrot() {
-        super("Carrot", "1000");
-    }
+import javafx.scene.canvas.GraphicsContext;
 
-    @Override
-    public void drawImage() {
-
-    }
+public final class Carrot {
+//    public Carrot() {
+//        super("Carrot", "1000");
+//    }
+//
+//    @Override
+//    public void drawImage() {
+//
+//    }
+//
+//    @Override
+//    public void drawItem(GraphicsContext gc, int x, int y, int cellSize) {
+//
+//    }
 }

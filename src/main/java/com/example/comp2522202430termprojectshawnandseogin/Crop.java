@@ -19,5 +19,4 @@ public abstract class Crop extends Item {
     public BigInteger getSellPrice() {
         return this.sellPrice;
     }
-    public abstract void drawImage();
 }
