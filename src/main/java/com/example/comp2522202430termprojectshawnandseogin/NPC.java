@@ -31,10 +31,10 @@ public final class NPC extends Decorator {
     public void interact(final Item item) {
         if (item instanceof Crop) {
             Main.player.addMoney(((Crop) item).sellPrice);
-            Main.player.removeItem(item);
+            Main.player.getInventory().removeItem(item);
         } else {
             Main.player.subtractMoney(EggplantSeed.BUY_PRICE);
-            Main.player.addItem(new EggplantSeed());
+            Main.player.getInventory().addItem(new EggplantSeed());
         }
     }
 
