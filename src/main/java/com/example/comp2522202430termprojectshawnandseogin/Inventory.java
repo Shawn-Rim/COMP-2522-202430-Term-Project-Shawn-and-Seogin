@@ -1,37 +1,53 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class Inventory {
-    private final List<Item> items;
+    public static final int MAX_CAPACITY = 6;
+
+    private final Item[] items;
+    private int currentCapacity;
 
     public Inventory() {
-        this.items = new ArrayList<>();
+        this.items = new Item[MAX_CAPACITY];
+        this.currentCapacity = 2;
+
+        // add items to the inventory
+        this.items[0] = new Hoe();
+        this.items[1] = new WateringCan();
     }
 
-    public void addItem(Item item) {
-        this.items.add(item);
+    public void addItem(final Item item) {
+        for (int i = 0; i < this.currentCapacity; i++) {
+            if (this.items[i] == item) {
+                this.items[i].addQuantity();
+                return;
+            }
+        }
+
+        this.items[this.currentCapacity] = item;
+        this.currentCapacity++;
     }
 
-    public void removeItem(Item item) {
-        for (Item inventoryItem : this.items) {
-            if (item.getQuantity() == 0) {
-                items.remove(inventoryItem);
-                break;
+    public void removeItem(final Item item) {
+        for (int i = 0; i < this.currentCapacity; i++) {
+            if (items[i] == item) {
+                items[i].subtractQuantity();
+            }
+
+            if (items[i].getQuantity() == 0) {
+                items[i] = null;
             }
         }
     }
 
-    public int capacity() {
-        return this.items.size();
+    public int getCapacity() {
+        return this.currentCapacity;
     }
 
     public Item getItem(final int index) {
-        if (index < 0 || index >= this.items.size()) {
+        if (index < 0 || index >= MAX_CAPACITY) {
             throw new IllegalArgumentException("Index out of bounds.");
         }
 
-        return this.items.get(index);
+        return this.items[index];
     }
 }
