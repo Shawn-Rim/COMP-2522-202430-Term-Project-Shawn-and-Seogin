@@ -8,4 +8,5 @@ public abstract class Decorator {
     public abstract void drawDecorator(GraphicsContext gc, int x, int y, int cellSize);
 
     public abstract void interact(Tool tool);
+
 }

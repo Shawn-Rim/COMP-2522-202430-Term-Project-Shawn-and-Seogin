@@ -5,12 +5,13 @@ import javafx.scene.image.Image;
 
 import java.util.Objects;
 
-public final class NPC extends Character {
+public final class NPC extends Decorator {
     private boolean visited;
-    private final static Image NPC = new Image(Objects.requireNonNull(WaterWell.class.getResourceAsStream("/NPC/NPC.png")));
+    private final static Image NPC = new Image(Objects.requireNonNull(NPC.class.getResourceAsStream("/NPC/NPC.png")));
 
-    public NPC(final String name, final GraphicsContext gc, final int x, final int y, final int cellSize) {
-        super(name, gc, x, y, cellSize);
+
+    public NPC() {
+        super();
 
         this.visited = false;
     }
@@ -24,7 +25,12 @@ public final class NPC extends Character {
     }
 
     @Override
-    public void drawCharacter() {
-        graphicsContext.drawImage(NPC, xCoordinate * cellSize, yCoordinate * cellSize, cellSize, cellSize);
+    public void interact(Tool tool) {
+
+    }
+
+    @Override
+    public void drawDecorator(final GraphicsContext gc, final int x, final int y, final int cellSize) {
+        gc.drawImage(NPC, x * cellSize, y * cellSize, cellSize, cellSize);
     }
 }

@@ -29,7 +29,7 @@ public final class Main extends Application {
         board.makeBoard();
 
         player = new Player("Player", gc, 3, 3, CELLSIZE);
-        NPC = new NPC("Racooondog", gc, 7, 7, CELLSIZE);
+
     }
 
     public void movePlayerOnKeyPress() {
@@ -52,7 +52,7 @@ public final class Main extends Application {
         board.drawBoard();
 
         movePlayerOnKeyPress();
-        NPC.drawCharacter();
+
         player.drawCharacter();
 
         // Tool box
@@ -76,8 +76,8 @@ public final class Main extends Application {
 
         // Main game loop: Invokes run() every frame
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), e -> run()));
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
         // Load Scene
         scene = new Scene(layout, ROWS * CELLSIZE, COLS * CELLSIZE + CELLSIZE);

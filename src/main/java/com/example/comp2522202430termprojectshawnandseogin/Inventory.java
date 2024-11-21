@@ -16,7 +16,7 @@ public final class Inventory {
 
     public void removeItem(Item item) {
         for (Item inventoryItem : this.items) {
-            if (inventoryItem == item) {
+            if (item.getQuantity() == 0) {
                 items.remove(inventoryItem);
                 break;
             }

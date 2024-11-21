@@ -57,8 +57,11 @@ public final class Map {
                     }
 
                     this.board.add(water);
-                }
-                else if (j == 4 && i != 1 && i != rows - 2) {
+                } else if (i ==7 && j == 7) {
+                    Water water = new Water(i, j, cellSize);
+                    water.setDecorator(new NPC());
+                    this.board.add(water);
+                } else if (j == 4 && i != 1 && i != rows - 2) {
                     this.board.add(new Soil(i, j, this.cellSize));
                 } else if (i == 1 && j == 1) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.leftTop));
