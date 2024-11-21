@@ -1,10 +1,14 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
+import java.math.BigInteger;
+
 public final class WateringCan extends Tool {
+    private static final BigInteger BUY_PRICE = new BigInteger("1000");
+
     private int remainingUses;
 
     public WateringCan() {
-        super("Watering Can", "1000");
+        super("Watering Can", BUY_PRICE);
         this.remainingUses = 0;
     }
 

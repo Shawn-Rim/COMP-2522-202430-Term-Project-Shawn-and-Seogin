@@ -6,10 +6,12 @@ import javafx.scene.image.Image;
 import java.util.Objects;
 
 public final class House extends Decorator {
-    private final static Image HOUSE = new Image(Objects.requireNonNull(House.class.getResourceAsStream("/House/House.png")));
-    private final static Image GROUND = new Image(Objects.requireNonNull(House.class.getResourceAsStream("/Ground/middle.png")));
+    private static final Image HOUSE = new Image(Objects.requireNonNull(
+            House.class.getResourceAsStream("/House/House.png")));
+    private static final Image GROUND = new Image(Objects.requireNonNull(
+            House.class.getResourceAsStream("/Ground/middle.png")));
 
-    private boolean showHouse;
+    private final boolean showHouse;
 
     public House(final boolean showHouse) {
         super();
@@ -26,7 +28,7 @@ public final class House extends Decorator {
     }
 
     @Override
-    public void interact(final Tool tool) {
+    public void interact(final Item item) {
 
     }
 }

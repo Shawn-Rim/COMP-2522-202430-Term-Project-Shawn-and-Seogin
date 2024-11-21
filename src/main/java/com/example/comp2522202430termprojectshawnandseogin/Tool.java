@@ -5,15 +5,15 @@ import java.math.BigInteger;
 public abstract class Tool extends Item {
     protected BigInteger buyPrice;
 
-    public Tool(final String name, final String buyPrice) {
+    public Tool(final String name, final BigInteger buyPrice) {
         // TODO: How to check if buyPrice is consisting of digits only
-        if (buyPrice == null || buyPrice.trim().isEmpty()) {
+        if (buyPrice == null) {
             throw new IllegalArgumentException("Buy price cannot be null or an empty string.");
         }
 
         super(name);
 
-        this.buyPrice = new BigInteger(buyPrice);
+        this.buyPrice = buyPrice;
     }
 
     public BigInteger getBuyPrice() {
