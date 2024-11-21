@@ -63,13 +63,13 @@ public final class Player extends Character {
         }
     }
 
-    public Player(final String name, final GraphicsContext gc, final int x, final int y, final int cellSize) {
-        super(name, gc, x, y, cellSize);
+    public Player(final GraphicsContext gc, final int x, final int y, final int cellSize) {
+        super(gc, x, y, cellSize);
 
         this.gc = gc;
         this.money = new BigInteger("0");
         this.view = Direction.down;
-        this.hand = new WateringCan();
+        this.hand = inventory.getItem(0);
 
         this.currentFrame = FRONT_IMAGES[0];
         this.frameIndex = 0;
@@ -148,7 +148,7 @@ public final class Player extends Character {
         }
 
         timeline.setOnFinished(e -> {
-            switch(this.view){
+            switch(this.view) {
                 case down -> currentFrame = FRONT_IMAGES[0];
                 case up -> currentFrame = BACK_IMAGES[0];
                 case right -> currentFrame = RIGHT_IMAGES[0];
@@ -177,7 +177,8 @@ public final class Player extends Character {
 
         // Find the tile that the player is looking at
         for (Tile tile : board) {
-            if (tile.xCoordinate == this.xCoordinate + x && tile.yCoordinate == this.yCoordinate + y) {
+            if (tile.xCoordinate == this.xCoordinate + x
+                    && tile.yCoordinate == this.yCoordinate + y) {
                 interactingTile = tile;
                 break;
             }
@@ -190,8 +191,9 @@ public final class Player extends Character {
         // Use tool if interacting tile is Soil and current item in hand is Tool
         if (interactingTile instanceof Soil && this.hand instanceof Tool) {
             ((Tool) this.hand).useTool((Soil) interactingTile);
+
             if (this.hand instanceof Hoe) {
-                switch (this.view){
+                switch (this.view) {
                     case down -> playFullSetAnimation(FRONT_HOE);
                     case up -> playFullSetAnimation(BACK_HOE);
                     case right -> playFullSetAnimation(RIGHT_HOE);
@@ -205,8 +207,8 @@ public final class Player extends Character {
                     case left -> playFullSetAnimation(LEFT_WATER_CAN);
                 }
             }
-        } else if (interactingTile.getDecorator() != null && this.hand instanceof Tool) {
-            interactingTile.getDecorator().interact((Tool) this.hand);
+        } else if (interactingTile.getDecorator() != null) {
+            interactingTile.getDecorator().interact(this.hand);
         }
     }
 
