@@ -17,9 +17,11 @@ public final class Main extends Application {
     public static final int ROWS = 10;
     public static final int COLS = 10;
     public static final int CELLSIZE = 50;
+    public static final int TOOLBOX_OFFSET = 3;
+    public static final int TEXT_SIZE = 5;
+    public static final int ARC = 25;
     public static Map board;
     public static Player player;
-    public static NPC NPC;
     public static GraphicsContext gc;
     public static Scene scene;
 
@@ -28,7 +30,7 @@ public final class Main extends Application {
         board = new Map(ROWS, COLS, CELLSIZE, gc);
         board.makeBoard();
 
-        player = new Player("Player", gc, 3, 3, CELLSIZE);
+        player = new Player(gc, 3, 3, CELLSIZE);
 
     }
 
@@ -42,6 +44,12 @@ public final class Main extends Application {
                     case DOWN -> player.move(Direction.down, board.getBoard());
                     case UP -> player.move(Direction.up, board.getBoard());
                     case SPACE -> player.interact(board.getBoard());
+                    case DIGIT1 -> player.changeHand(0);
+                    case DIGIT2 -> player.changeHand(1);
+                    case DIGIT3 -> player.changeHand(2);
+                    case DIGIT4 -> player.changeHand(3);
+                    case DIGIT5 -> player.changeHand(4);
+                    case DIGIT6 -> player.changeHand(5);
                 }
 
             }
@@ -59,9 +67,32 @@ public final class Main extends Application {
         gc.setFill(Color.BURLYWOOD);
         gc.fillRect(0, COLS * CELLSIZE, ROWS * CELLSIZE, CELLSIZE);
 
-        for (int i = 3; i < ROWS * CELLSIZE; i = i + CELLSIZE) {
+        final Inventory inventory = player.getInventory();
+
+        for (int i = 0; i < Inventory.MAX_CAPACITY; i++) {
+            final int x = (i + TOOLBOX_OFFSET) * CELLSIZE;
+            final int y = COLS * CELLSIZE + TOOLBOX_OFFSET;
+            final Item item = inventory.getItem(i);
+
+            // draw outline
+            gc.setFill(Color.BISQUE);
+            if (item != null) {
+                gc.setFill(Color.GOLD);
+            }
+            gc.fillRoundRect(x, y, CELLSIZE - TOOLBOX_OFFSET * 2,
+                    CELLSIZE - TOOLBOX_OFFSET * 2, ARC, ARC);
+
             gc.setFill(Color.MOCCASIN);
-            gc.fillRoundRect(i, COLS * CELLSIZE + 3, CELLSIZE - 6, CELLSIZE - 6, 25, 25);
+            gc.fillRoundRect(x, y, CELLSIZE - TOOLBOX_OFFSET * TOOLBOX_OFFSET,
+                    CELLSIZE - TOOLBOX_OFFSET * TOOLBOX_OFFSET, ARC, ARC);
+            if (item != null) {
+                item.drawItem(gc, x, y, CELLSIZE);
+                if (item.getQuantity() > 1) {
+                    gc.setFill(Color.WHITE);
+                    gc.fillText(String.valueOf(item.getQuantity()),
+                            x + CELLSIZE, y + CELLSIZE, TEXT_SIZE);
+                }
+            }
         }
     }
 
@@ -86,7 +117,7 @@ public final class Main extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch();
     }
 }
