@@ -1,6 +1,8 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
-public final class Inventory {
+import java.io.Serializable;
+
+public final class Inventory implements Serializable {
     public static final int MAX_CAPACITY = 6;
 
     private final Item[] items;

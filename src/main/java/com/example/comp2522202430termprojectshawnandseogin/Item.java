@@ -2,9 +2,10 @@ package com.example.comp2522202430termprojectshawnandseogin;
 
 import javafx.scene.canvas.GraphicsContext;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Item {
+public abstract class Item implements Serializable {
     protected final String name;
     protected int quantity;
 

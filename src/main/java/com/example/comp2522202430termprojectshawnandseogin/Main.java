@@ -14,31 +14,33 @@ import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
 public final class Main extends Application {
-    public static final int ROWS = 10;
-    public static final int COLS = 10;
-    public static final int CELLSIZE = 50;
-    public static final int TOOLBOX_OFFSET = 3;
-    public static final int ITEM_OFFSET = 10;
-    public static final int TEXT_SIZE = 25;
-    public static final int ARC = 25;
-    public static Map board;
-    public static Player player;
+    private static final int TOOLBOX_OFFSET = 3;
+    private static final int ITEM_OFFSET = 10;
+    private static final int TEXT_SIZE = 25;
+    private static final int ARC = 25;
+
     public static GraphicsContext gc;
-    public static Scene scene;
+    private static Scene scene;
 
+    private static final int ROWS = GameManager.ROWS;
+    private static final int COLS = GameManager.COLS;
+    private static final int CELL_SIZE = GameManager.CELL_SIZE;
+    private static GameManager gameManager;
+    private static Map board;
+    private static Player player;
+    private static Inventory playerInventory;
 
-    public static void initGame() {
-        board = new Map(ROWS, COLS, CELLSIZE, gc);
-        board.makeBoard();
-
-        player = new Player(gc, 3, 3, CELLSIZE);
-
+    private void initGame() {
+        gameManager.setGraphicsContext(gc);
+        board = gameManager.getBoard();
+        player = gameManager.getPlayer();
+        playerInventory = gameManager.getInventory();
     }
 
-    public void movePlayerOnKeyPress() {
+    private void movePlayerOnKeyPress() {
         scene.setOnKeyPressed((new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent event) {
+            public void handle(final KeyEvent event) {
                 switch(event.getCode()) {
                     case RIGHT -> player.move(Direction.right, board.getBoard());
                     case LEFT -> player.move(Direction.left, board.getBoard());
@@ -57,7 +59,7 @@ public final class Main extends Application {
         }));
     }
 
-    public void run() {
+    private void run() {
         board.drawBoard();
 
         movePlayerOnKeyPress();
@@ -66,31 +68,30 @@ public final class Main extends Application {
 
         // Tool box
         gc.setFill(Color.BURLYWOOD);
-        gc.fillRect(0, COLS * CELLSIZE, ROWS * CELLSIZE, CELLSIZE);
+        gc.fillRect(0, COLS * CELL_SIZE, ROWS * CELL_SIZE, CELL_SIZE);
 
-        Inventory inventory = player.getInventory();
-        inventory.checkItem();
+        playerInventory.checkItem();
 
         for (int i = 0; i < Inventory.MAX_CAPACITY; i++) {
-            final int x = i * CELLSIZE + TOOLBOX_OFFSET;
-            final int y = COLS * CELLSIZE + TOOLBOX_OFFSET;
-            final Item item = inventory.getItem(i);
+            final int x = i * CELL_SIZE + TOOLBOX_OFFSET;
+            final int y = COLS * CELL_SIZE + TOOLBOX_OFFSET;
+            final Item item = playerInventory.getItem(i);
 
             // draw outline
             gc.setFill(Color.DARKGOLDENROD);
             if (item != null && item == player.getHand()) {
                 gc.setFill(Color.CRIMSON);
             }
-            gc.fillRoundRect(x, y, CELLSIZE - TOOLBOX_OFFSET,
-                    CELLSIZE - TOOLBOX_OFFSET, ARC, ARC);
+            gc.fillRoundRect(x, y, CELL_SIZE - TOOLBOX_OFFSET,
+                    CELL_SIZE - TOOLBOX_OFFSET, ARC, ARC);
 
             gc.setFill(Color.MOCCASIN);
             gc.fillRoundRect(x + TOOLBOX_OFFSET, y + TOOLBOX_OFFSET,
-                    CELLSIZE - TOOLBOX_OFFSET * TOOLBOX_OFFSET,
-                    CELLSIZE - TOOLBOX_OFFSET * TOOLBOX_OFFSET, ARC, ARC);
+                    CELL_SIZE - TOOLBOX_OFFSET * TOOLBOX_OFFSET,
+                    CELL_SIZE - TOOLBOX_OFFSET * TOOLBOX_OFFSET, ARC, ARC);
 
             if (item != null) {
-                item.drawItem(gc, x + ITEM_OFFSET / 2, y + ITEM_OFFSET / 2, CELLSIZE - ITEM_OFFSET);
+                item.drawItem(gc, x + ITEM_OFFSET / 2, y + ITEM_OFFSET / 2, CELL_SIZE - ITEM_OFFSET);
                 if (item.getQuantity() > 1) {
                     gc.setFill(Color.BLACK);
                     gc.fillText(String.valueOf(item.getQuantity()),
@@ -105,10 +106,11 @@ public final class Main extends Application {
     @Override
     public void start(final Stage stage) throws Exception {
         VBox layout = new VBox();
-        Canvas canvas = new Canvas(ROWS * CELLSIZE, COLS * CELLSIZE + CELLSIZE);
+        Canvas canvas = new Canvas(ROWS * CELL_SIZE, COLS * CELL_SIZE + CELL_SIZE);
         gc = canvas.getGraphicsContext2D();
         layout.getChildren().add(canvas);
 
+        gameManager = GameManager.getGameManager();
         initGame();
 
         // Main game loop: Invokes run() every frame
@@ -117,7 +119,7 @@ public final class Main extends Application {
         timeline.play();
 
         // Load Scene
-        scene = new Scene(layout, ROWS * CELLSIZE, COLS * CELLSIZE + CELLSIZE);
+        scene = new Scene(layout, ROWS * CELL_SIZE, COLS * CELL_SIZE + CELL_SIZE);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

@@ -29,6 +29,6 @@ public final class House extends Decorator {
 
     @Override
     public void interact(final Item item) {
-
+        GameManager.getGameManager().saveGame();
     }
 }

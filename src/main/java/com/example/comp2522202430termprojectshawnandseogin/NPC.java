@@ -11,30 +11,24 @@ public final class NPC extends Decorator {
     private static final Image GROUND = new Image(Objects.requireNonNull(
             House.class.getResourceAsStream("/Ground/middle.png")));
 
-    private boolean visited;
-
     public NPC() {
         super();
-
-        this.visited = false;
     }
 
     public String talk() {
         return "Hello!";
     }
 
-    public void visit() {
-        this.visited = true;
-    }
-
     @Override
     public void interact(final Item item) {
+        GameManager gameManager = GameManager.getGameManager();
+
         if (item instanceof Crop) {
-            Main.player.addMoney(((Crop) item).sellPrice);
-            Main.player.getInventory().removeItem(item);
+            gameManager.getPlayer().addMoney(((Crop) item).sellPrice);
+            gameManager.getInventory().removeItem(item);
         } else {
-            Main.player.subtractMoney(EggplantSeed.BUY_PRICE);
-            Main.player.getInventory().addItem(new EggplantSeed());
+            gameManager.getPlayer().subtractMoney(EggplantSeed.BUY_PRICE);
+            gameManager.getInventory().addItem(new EggplantSeed());
         }
     }
 

@@ -1,36 +1,29 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
-public final class Map {
+public final class Map implements Serializable {
     private final int rows;
     private final int cols;
     private final int cellSize;
     private final List<Tile> board;
-    private final GraphicsContext graphicsContext;
 
-    public Map(final int rows, final int cols, final int cellSize, final GraphicsContext gc) {
+    public Map(final int rows, final int cols, final int cellSize) {
         if (rows <= 0 || cols <= 0) {
             throw new IllegalArgumentException("Rows or columns must be a positive number.");
         } else if (cellSize < 0) {
             throw new IllegalArgumentException("Cell size must be bigger than or equal to zero.");
-        } else if (gc == null) {
-            throw new IllegalArgumentException("GraphicsContext is null.");
         }
 
         this.rows = rows;
         this.cols = cols;
         this.cellSize = cellSize;
         this.board = new ArrayList<Tile>();
-        this.graphicsContext = gc;
     }
 
     public List<Tile> getBoard() {
@@ -87,9 +80,10 @@ public final class Map {
     }
 
     public void drawBoard() {
+        GraphicsContext gc = GameManager.getGameManager().getGraphicsContext();
         // Draw each tile
         for (Tile tile : this.board) {
-            tile.drawTile(this.graphicsContext);
+            tile.drawTile(gc);
         }
     }
 }

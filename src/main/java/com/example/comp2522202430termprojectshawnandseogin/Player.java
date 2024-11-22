@@ -1,6 +1,5 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.math.BigInteger;
@@ -24,12 +23,11 @@ public final class Player extends Character {
     private static final Image[] BACK_WATER_CAN = new Image[IMAGE_SIZE];
     private static final Image[] RIGHT_WATER_CAN = new Image[IMAGE_SIZE];
     private static final Image[] LEFT_WATER_CAN = new Image[IMAGE_SIZE];
+    private transient Image currentFrame = FRONT_IMAGES[0];
 
     private BigInteger money;
     private Direction view;
     private Item hand;
-    private Image currentFrame;
-    private GraphicsContext gc;
     private int frameIndex;
     private long lastFrameTime;
 
@@ -63,15 +61,13 @@ public final class Player extends Character {
         }
     }
 
-    public Player(final GraphicsContext gc, final int x, final int y, final int cellSize) {
-        super(gc, x, y, cellSize);
+    public Player(final int x, final int y, final int cellSize) {
+        super(x, y, cellSize);
 
-        this.gc = gc;
         this.money = new BigInteger("-10000");
         this.view = Direction.down;
         this.hand = inventory.getItem(0);
 
-        this.currentFrame = FRONT_IMAGES[0];
         this.frameIndex = 0;
         this.lastFrameTime = 0;
     }
@@ -82,11 +78,12 @@ public final class Player extends Character {
 
     @Override
     public void drawCharacter() {
-        gc.drawImage(currentFrame, this.xCoordinate * this.cellSize, this.yCoordinate * this.cellSize,
-                this.cellSize, this.cellSize);
+        GameManager.getGameManager().getGraphicsContext()
+                .drawImage(currentFrame, this.xCoordinate * this.cellSize,
+                        this.yCoordinate * this.cellSize, this.cellSize, this.cellSize);
     }
 
-    private void animate(Image[] frames) {
+    private void animate(final Image[] frames) {
         long now = System.nanoTime();
         if (now - lastFrameTime > 0) {
             frameIndex = (frameIndex + 1) % frames.length;
@@ -139,7 +136,7 @@ public final class Player extends Character {
         }
     }
 
-    private void playFullSetAnimation(Image[] frames) {
+    private void playFullSetAnimation(final Image[] frames) {
         Timeline timeline = new Timeline();
 
         for (int i = 0; i < IMAGE_SIZE; i++) {
