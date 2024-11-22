@@ -16,7 +16,7 @@ public abstract class Seed extends Tool {
 
     @Override
     public void useTool(Soil soil) {
-        if (soil.getIsPlantable() && this.quantity > 0) {
+        if (soil.getDecorator() == null && soil.getIsPlantable() && this.quantity > 0) {
             this.quantity--;
             soil.setDecorator(new Planted(this));
         }
