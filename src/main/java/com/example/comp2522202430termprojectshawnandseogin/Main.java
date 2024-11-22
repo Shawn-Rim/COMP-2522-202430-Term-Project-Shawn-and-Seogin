@@ -98,6 +98,8 @@ public final class Main extends Application {
                 }
             }
         }
+        gc.setFill(Color.BLACK);
+        gc.fillText(player.getMoney(), 25, 25, 100000);
     }
 
     @Override

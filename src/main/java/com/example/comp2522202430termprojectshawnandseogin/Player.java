@@ -67,7 +67,7 @@ public final class Player extends Character {
         super(gc, x, y, cellSize);
 
         this.gc = gc;
-        this.money = new BigInteger("0");
+        this.money = new BigInteger("-10000");
         this.view = Direction.down;
         this.hand = inventory.getItem(0);
 
@@ -224,6 +224,10 @@ public final class Player extends Character {
 
     public void subtractMoney(final BigInteger value) {
         this.money = this.money.subtract(value.abs());
+    }
+
+    public String getMoney() {
+        return this.money.toString();
     }
 
     public void changeHand(final int index) {
