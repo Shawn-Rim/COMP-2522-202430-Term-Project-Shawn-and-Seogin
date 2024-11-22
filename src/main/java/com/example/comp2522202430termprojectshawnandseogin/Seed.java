@@ -4,7 +4,6 @@ import java.math.BigInteger;
 
 public abstract class Seed extends Tool {
     protected double growthRate;
-    private int quantity;
 
     public Seed(final String name, final BigInteger buyPrice, final double growthRate) {
         if (Double.compare(growthRate, 0.0) <= 0) {
@@ -13,7 +12,6 @@ public abstract class Seed extends Tool {
 
         super(name, buyPrice);
         this.growthRate = growthRate;
-        this.quantity = 1;
     }
 
     @Override

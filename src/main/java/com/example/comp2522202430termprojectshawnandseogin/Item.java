@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public abstract class Item {
     protected final String name;
-    private int quantity;
+    protected int quantity;
 
     public Item(final String name) {
         if (name == null || name.trim().isEmpty()) {
