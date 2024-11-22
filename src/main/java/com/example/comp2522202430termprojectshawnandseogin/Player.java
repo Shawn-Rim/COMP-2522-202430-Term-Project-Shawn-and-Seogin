@@ -76,6 +76,10 @@ public final class Player extends Character {
         this.lastFrameTime = 0;
     }
 
+    public Item getHand() {
+        return this.hand;
+    }
+
     @Override
     public void drawCharacter() {
         gc.drawImage(currentFrame, this.xCoordinate * this.cellSize, this.yCoordinate * this.cellSize,
@@ -199,7 +203,7 @@ public final class Player extends Character {
                     case right -> playFullSetAnimation(RIGHT_HOE);
                     case left -> playFullSetAnimation(LEFT_HOE);
                 }
-            } else {
+            } else if (this.hand instanceof WateringCan) {
                 switch (this.view) {
                     case down -> playFullSetAnimation(FRONT_WATER_CAN);
                     case up -> playFullSetAnimation(BACK_WATER_CAN);
@@ -207,16 +211,18 @@ public final class Player extends Character {
                     case left -> playFullSetAnimation(LEFT_WATER_CAN);
                 }
             }
+
         } else if (interactingTile.getDecorator() != null) {
             interactingTile.getDecorator().interact(this.hand);
+
         }
     }
 
-    public void addMoney(BigInteger value) {
+    public void addMoney(final BigInteger value) {
         this.money = this.money.add(value.abs());
     }
 
-    public void subtractMoney(BigInteger value) {
+    public void subtractMoney(final BigInteger value) {
         this.money = this.money.subtract(value.abs());
     }
 

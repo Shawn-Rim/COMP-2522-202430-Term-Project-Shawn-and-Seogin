@@ -18,7 +18,7 @@ public final class Main extends Application {
     public static final int COLS = 10;
     public static final int CELLSIZE = 50;
     public static final int TOOLBOX_OFFSET = 3;
-    public static final int TEXT_SIZE = 5;
+    public static final int TEXT_SIZE = 25;
     public static final int ARC = 25;
     public static Map board;
     public static Player player;
@@ -67,16 +67,17 @@ public final class Main extends Application {
         gc.setFill(Color.BURLYWOOD);
         gc.fillRect(0, COLS * CELLSIZE, ROWS * CELLSIZE, CELLSIZE);
 
-        final Inventory inventory = player.getInventory();
+        Inventory inventory = player.getInventory();
+        inventory.checkItem();
 
         for (int i = 0; i < Inventory.MAX_CAPACITY; i++) {
-            final int x = (i + TOOLBOX_OFFSET) * CELLSIZE;
+            final int x = i * CELLSIZE + TOOLBOX_OFFSET;
             final int y = COLS * CELLSIZE + TOOLBOX_OFFSET;
             final Item item = inventory.getItem(i);
 
             // draw outline
             gc.setFill(Color.BISQUE);
-            if (item != null) {
+            if (item != null && item == player.getHand()) {
                 gc.setFill(Color.GOLD);
             }
             gc.fillRoundRect(x, y, CELLSIZE - TOOLBOX_OFFSET * 2,
@@ -85,12 +86,13 @@ public final class Main extends Application {
             gc.setFill(Color.MOCCASIN);
             gc.fillRoundRect(x, y, CELLSIZE - TOOLBOX_OFFSET * TOOLBOX_OFFSET,
                     CELLSIZE - TOOLBOX_OFFSET * TOOLBOX_OFFSET, ARC, ARC);
+
             if (item != null) {
                 item.drawItem(gc, x, y, CELLSIZE);
                 if (item.getQuantity() > 1) {
-                    gc.setFill(Color.WHITE);
+                    gc.setFill(Color.BLACK);
                     gc.fillText(String.valueOf(item.getQuantity()),
-                            x + CELLSIZE, y + CELLSIZE, TEXT_SIZE);
+                            x, y + TOOLBOX_OFFSET * 2, TEXT_SIZE);
                 }
             }
         }

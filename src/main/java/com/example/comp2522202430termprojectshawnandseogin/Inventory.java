@@ -16,8 +16,12 @@ public final class Inventory {
     }
 
     public void addItem(final Item item) {
+        if (this.currentCapacity >= MAX_CAPACITY) {
+            return;
+        }
+
         for (int i = 0; i < this.currentCapacity; i++) {
-            if (this.items[i] == item) {
+            if (this.items[i].equals(item)) {
                 this.items[i].addQuantity();
                 return;
             }
@@ -27,14 +31,19 @@ public final class Inventory {
         this.currentCapacity++;
     }
 
+    public void checkItem() {
+        for (int i = 0; i < this.currentCapacity; i++) {
+            if (items[i].getQuantity() <= 0) {
+                items[i] = null;
+                this.currentCapacity--;
+            }
+        }
+    }
+
     public void removeItem(final Item item) {
         for (int i = 0; i < this.currentCapacity; i++) {
-            if (items[i] == item) {
+            if (items[i].equals(item)) {
                 items[i].subtractQuantity();
-            }
-
-            if (items[i].getQuantity() == 0) {
-                items[i] = null;
             }
         }
     }
