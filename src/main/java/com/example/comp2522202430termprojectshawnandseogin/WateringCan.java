@@ -16,7 +16,7 @@ public final class WateringCan extends Tool {
 
     public WateringCan() {
         super("Watering Can", BUY_PRICE);
-        this.remainingUses = 0;
+        this.remainingUses = 3;
     }
 
 
@@ -33,6 +33,6 @@ public final class WateringCan extends Tool {
     }
     @Override
     public void drawItem(final GraphicsContext gc, final int x, final int y, final int cellSize) {
-        gc.drawImage(WATERING_CAN, x * cellSize, y * cellSize, cellSize, cellSize);
+        gc.drawImage(WATERING_CAN, x, y, cellSize, cellSize);
     }
 }

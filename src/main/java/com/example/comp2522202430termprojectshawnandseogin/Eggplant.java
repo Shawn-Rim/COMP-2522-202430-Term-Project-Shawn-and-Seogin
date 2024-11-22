@@ -20,7 +20,6 @@ public final class Eggplant extends Crop {
 
     @Override
     public void drawItem(final GraphicsContext gc, final int x, final int y, final int cellSize) {
-        gc.drawImage(EGGPLANT_IMAGE[IMAGE_SIZE - 1],
-                x * cellSize, y * cellSize, cellSize, cellSize);
+        gc.drawImage(EGGPLANT_IMAGE[IMAGE_SIZE - 1], x, y, cellSize, cellSize);
     }
 }
