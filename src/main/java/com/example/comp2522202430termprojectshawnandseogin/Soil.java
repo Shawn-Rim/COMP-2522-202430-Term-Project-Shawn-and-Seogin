@@ -51,7 +51,10 @@ public final class Soil extends Tile {
     }
 
     public void togglePlantable() {
-        this.isPlantable = !this.isPlantable;
+        if (this.decorator == null) {
+            this.isWatered = false;
+            this.isPlantable = !this.isPlantable;
+        }
     }
 
     public void waterSoil() {
