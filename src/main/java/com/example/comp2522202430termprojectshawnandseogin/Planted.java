@@ -10,7 +10,7 @@ public final class Planted extends Decorator {
     private final static Image[] CARROTS = new Image[IMAGE_SIZE];
     private final static Image[] EGGPLANTS = new Image[IMAGE_SIZE];
 
-    private final double progress;
+    private double progress;
     private final Seed seed;
 
     static {
@@ -31,7 +31,7 @@ public final class Planted extends Decorator {
 
     @Override
     public void drawDecorator(final GraphicsContext gc, final int x, final int y, final int cellSize) {
-        int imageIndex = (int) Math.floor(this.progress * IMAGE_SIZE);
+        int imageIndex = Math.min((int) Math.floor(this.progress * IMAGE_SIZE), IMAGE_SIZE - 1);
         Image[] images;
 
         switch(this.seed.getName()) {
@@ -41,7 +41,10 @@ public final class Planted extends Decorator {
         }
 
         gc.drawImage(images[imageIndex], x * cellSize, y * cellSize, cellSize, cellSize);
+    }
 
+    public void growPlant() {
+        this.progress = Math.min(this.progress + this.seed.getGrowthRate(), 1);
     }
 
     @Override

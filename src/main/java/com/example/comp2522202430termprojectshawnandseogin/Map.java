@@ -94,4 +94,16 @@ public final class Map implements Serializable {
             tile.drawTile(gc);
         }
     }
+
+    public void growPlants() {
+        for (Tile tile : this.board) {
+            if (tile instanceof Soil soil) {
+                if (soil.getIsWatered() && soil.getDecorator() instanceof Planted) {
+                    ((Planted) soil.getDecorator()).growPlant();
+                }
+
+                soil.drySoil();
+            }
+        }
+    }
 }

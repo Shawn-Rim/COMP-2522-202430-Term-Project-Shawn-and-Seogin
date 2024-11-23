@@ -61,6 +61,10 @@ public final class Soil extends Tile {
         this.isWatered = true;
     }
 
+    public void drySoil() {
+        this.isWatered = false;
+    }
+
     @Override
     public void drawTile(final GraphicsContext gc) {
         Image image;

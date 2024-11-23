@@ -14,6 +14,10 @@ public abstract class Seed extends Tool {
         this.growthRate = growthRate;
     }
 
+    public double getGrowthRate() {
+        return this.growthRate;
+    }
+
     @Override
     public void useTool(Soil soil) {
         if (soil.getDecorator() == null && soil.getIsPlantable() && this.quantity > 0) {
