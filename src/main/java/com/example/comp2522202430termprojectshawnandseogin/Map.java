@@ -6,8 +6,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public final class Map implements Serializable {
+    private static final Random RANDOM = new Random();
+
     private final int rows;
     private final int cols;
     private final int cellSize;
@@ -50,7 +53,7 @@ public final class Map implements Serializable {
                     }
 
                     this.board.add(water);
-                } else if (i ==7 && j == 7) {
+                } else if (i == 7 && j == 7) {
                     Water water = new Water(i, j, cellSize);
                     water.setDecorator(new NPC());
                     this.board.add(water);
@@ -65,15 +68,20 @@ public final class Map implements Serializable {
                 } else if (i == rows-2 && j == cols - 2) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.rightBottom));
                 } else if (j == 1) {
-                    this.board.add(new Ground(i, j , this.cellSize, GroundDirection.top));
+                    this.board.add(new Ground(i, j, this.cellSize, GroundDirection.top));
                 } else if (i == 1) {
-                    this.board.add(new Ground(i, j , this.cellSize, GroundDirection.left));
+                    this.board.add(new Ground(i, j, this.cellSize, GroundDirection.left));
                 } else if (i == rows-2) {
-                    this.board.add(new Ground(i, j , this.cellSize, GroundDirection.right));
+                    this.board.add(new Ground(i, j, this.cellSize, GroundDirection.right));
                 } else if (j == cols-2) {
-                    this.board.add(new Ground(i, j , this.cellSize, GroundDirection.bottom));
+                    this.board.add(new Ground(i, j, this.cellSize, GroundDirection.bottom));
                 } else {
-                    this.board.add(new Ground(i, j, this.cellSize));
+                    Ground ground = new Ground(i, j, this.cellSize);
+                    if (RANDOM.nextInt(2) == 0) {
+                        ground.setDecorator(new Grass());
+                    }
+
+                    this.board.add(ground);
                 }
             }
         }
