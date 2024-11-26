@@ -208,10 +208,10 @@ public final class Player extends Character {
                     case left -> playFullSetAnimation(LEFT_WATER_CAN);
                 }
             }
+        }
 
-        } else if (interactingTile.getDecorator() != null) {
+        if (interactingTile.getDecorator() != null) {
             interactingTile.getDecorator().interact(this.hand);
-
         }
     }
 

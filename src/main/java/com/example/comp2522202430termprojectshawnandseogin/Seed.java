@@ -22,7 +22,7 @@ public abstract class Seed extends Tool {
     public void useTool(Soil soil) {
         if (soil.getDecorator() == null && soil.getIsPlantable() && this.quantity > 0) {
             this.quantity--;
-            soil.setDecorator(new Planted(this));
+            soil.setDecorator(new Planted(this, soil));
         }
     }
 }

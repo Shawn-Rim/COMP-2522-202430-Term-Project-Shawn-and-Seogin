@@ -12,6 +12,7 @@ public final class Planted extends Decorator {
 
     private double progress;
     private final Seed seed;
+    private final Soil soil;
 
     static {
         for (int i = 1; i <= IMAGE_SIZE; i++) {
@@ -22,11 +23,12 @@ public final class Planted extends Decorator {
         }
     }
 
-    public Planted(final Seed seed) {
+    public Planted(final Seed seed, final Soil soil) {
         super();
 
         this.seed = seed;
         this.progress = 0.0;
+        this.soil = soil;
     }
 
     @Override
@@ -49,6 +51,9 @@ public final class Planted extends Decorator {
 
     @Override
     public void interact(final Item item) {
-
+        if (this.progress >= 1) {
+            soil.setDecorator(null);
+            GameManager.getGameManager().getInventory().addItem(new Eggplant());
+        }
     }
 }
