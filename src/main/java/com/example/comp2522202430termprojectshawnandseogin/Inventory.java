@@ -6,11 +6,9 @@ public final class Inventory implements Serializable {
     public static final int MAX_CAPACITY = 6;
 
     private final Item[] items;
-    private int currentCapacity;
 
     public Inventory() {
         this.items = new Item[MAX_CAPACITY];
-        this.currentCapacity = 2;
 
         // add items to the inventory
         this.items[0] = new Hoe();
@@ -18,40 +16,36 @@ public final class Inventory implements Serializable {
     }
 
     public void addItem(final Item item) {
-        if (this.currentCapacity >= MAX_CAPACITY) {
-            return;
-        }
-
-        for (int i = 0; i < this.currentCapacity; i++) {
-            if (this.items[i].equals(item)) {
+        for (int i = 0; i < MAX_CAPACITY; i++) {
+            if (this.items[i] != null && this.items[i].equals(item)) {
                 this.items[i].addQuantity();
                 return;
             }
         }
 
-        this.items[this.currentCapacity] = item;
-        this.currentCapacity++;
+        // If the items does not exist yet, add the item to an empty space
+        for (int i = 0; i < MAX_CAPACITY; i++) {
+            if (this.items[i] == null) {
+                this.items[i] = item;
+                return;
+            }
+        }
     }
 
     public void checkItem() {
-        for (int i = 0; i < this.currentCapacity; i++) {
-            if (items[i].getQuantity() <= 0) {
-                items[i] = null;
-                this.currentCapacity--;
+        for (int i = 0; i < MAX_CAPACITY; i++) {
+            if (this.items[i] != null && this.items[i].getQuantity() <= 0) {
+                this.items[i] = null;
             }
         }
     }
 
     public void removeItem(final Item item) {
-        for (int i = 0; i < this.currentCapacity; i++) {
-            if (items[i].equals(item)) {
-                items[i].subtractQuantity();
+        for (int i = 0; i < MAX_CAPACITY; i++) {
+            if (this.items[i] != null && this.items[i].equals(item)) {
+                this.items[i].subtractQuantity();
             }
         }
-    }
-
-    public int getCapacity() {
-        return this.currentCapacity;
     }
 
     public Item getItem(final int index) {
