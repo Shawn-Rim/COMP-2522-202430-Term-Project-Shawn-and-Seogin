@@ -34,7 +34,7 @@ public abstract class Tile implements Serializable {
      * @param xCoordinate of int
      * @param yCoordinate of int
      * @param cellSize of int
-     * @throws IllegalArgumentException if x, y coordinate is bigger than range
+     * @throws IllegalArgumentException if x, y coordinate is bigger the than range or negative
      * @throws IllegalArgumentException if cell size is negative
      */
     public Tile(final int xCoordinate, final int yCoordinate, final int cellSize)
