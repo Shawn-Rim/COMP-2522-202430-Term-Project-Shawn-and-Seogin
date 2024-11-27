@@ -3,6 +3,7 @@ package com.example.comp2522202430termprojectshawnandseogin;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.math.BigInteger;
 import java.util.Objects;
 
 /**
@@ -48,8 +49,10 @@ public final class House extends Decorator {
 
     @Override
     public void interact(final Item item) {
-        GameManager.getGameManager().getBoard().growPlants();
-        GameManager.getGameManager().saveGame();
+        GameManager gameManager = GameManager.getGameManager();
+        gameManager.getPlayer().subtractMoney(new BigInteger("200"));
+        gameManager.getBoard().growPlants();
+        gameManager.saveGame();
     }
 
     @Override
