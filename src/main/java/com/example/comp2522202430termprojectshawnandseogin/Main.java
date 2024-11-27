@@ -138,7 +138,7 @@ public final class Main extends Application {
 
         // Load Scene
         scene = new Scene(layout, ROWS * CELL_SIZE, COLS * CELL_SIZE + CELL_SIZE);
-        stage.setTitle("Hello!");
+        stage.setTitle("Cash Crop");
         stage.setScene(scene);
         stage.show();
     }
