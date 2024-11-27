@@ -62,6 +62,10 @@ public final class Inventory implements Serializable {
     public void checkItem() {
         for (int i = 0; i < MAX_CAPACITY; i++) {
             if (this.items[i] != null && this.items[i].getQuantity() <= 0) {
+                Player player = GameManager.getGameManager().getPlayer();
+                if (player.getHand().equals(this.items[i])) {
+                    player.changeHand(0);
+                }
                 this.items[i] = null;
             }
         }
