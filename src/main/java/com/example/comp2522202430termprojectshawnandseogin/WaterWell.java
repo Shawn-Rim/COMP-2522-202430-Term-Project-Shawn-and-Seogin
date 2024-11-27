@@ -12,8 +12,10 @@ import java.util.Objects;
  * @version 2024
  */
 public final class WaterWell extends Decorator {
-    private static final Image WATERWELL = new Image(Objects.requireNonNull(WaterWell.class.getResourceAsStream("/WaterWell/Water well.png")));
-    private static final Image GROUND = new Image(Objects.requireNonNull(WaterWell.class.getResourceAsStream("/Ground/middle.png")));
+    private static final Image WATERWELL = new Image(Objects.requireNonNull(
+            WaterWell.class.getResourceAsStream("/WaterWell/Water well.png")));
+    private static final Image GROUND = new Image(Objects.requireNonNull(
+            WaterWell.class.getResourceAsStream("/Ground/middle.png")));
 
     /**
      * Constructs an object Type of WaterWell.
@@ -31,7 +33,8 @@ public final class WaterWell extends Decorator {
      * @param cellSize an int representing the size
      */
     @Override
-    public void drawDecorator(final GraphicsContext gc, final int x, final int y, final int cellSize) {
+    public void drawDecorator(final GraphicsContext gc, final int x, final int y,
+                              final int cellSize) {
         gc.drawImage(GROUND, x * cellSize, y * cellSize, cellSize, cellSize);
         gc.drawImage(WATERWELL, x * cellSize, y * cellSize, cellSize, cellSize);
     }

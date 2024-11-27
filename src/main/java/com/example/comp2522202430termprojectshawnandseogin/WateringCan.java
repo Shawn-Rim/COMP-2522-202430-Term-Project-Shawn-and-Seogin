@@ -24,8 +24,9 @@ public final class WateringCan extends Tool {
      * Constructs an object Type of WateringCan.
      */
     public WateringCan() {
+        final int defaultUse = 3;
         super("Watering Can", BUY_PRICE);
-        this.remainingUses = 3;
+        this.remainingUses = defaultUse;
     }
 
     /**

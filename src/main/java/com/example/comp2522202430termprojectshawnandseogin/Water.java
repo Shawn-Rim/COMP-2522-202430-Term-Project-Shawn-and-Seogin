@@ -12,7 +12,8 @@ import java.util.Objects;
  * @version 2024
  */
 public final class Water extends Tile implements BlockTile {
-    private static final Image WATER = new Image(Objects.requireNonNull(Ground.class.getResourceAsStream("/Water/Water1.png")));
+    private static final Image WATER = new Image(Objects.requireNonNull(
+            Ground.class.getResourceAsStream("/Water/Water1.png")));
 
     /**
      * Constructs an object Type of Water.
@@ -44,7 +45,8 @@ public final class Water extends Tile implements BlockTile {
      * @param y of y coordinate
      * @param cellSize of int
      */
-    public static void drawWater(final GraphicsContext gc, final int x, final int y, final int cellSize) {
+    public static void drawWater(final GraphicsContext gc, final int x, final int y,
+                                 final int cellSize) {
         gc.drawImage(WATER, x * cellSize, y * cellSize, cellSize, cellSize);
     }
 }
