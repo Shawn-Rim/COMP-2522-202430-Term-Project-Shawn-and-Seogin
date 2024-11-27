@@ -1,11 +1,9 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -14,6 +12,12 @@ import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
+/**
+ * Represents an Item in the game.
+ *
+ * @author Seogin Hong, Shawn Rim
+ * @version 2024
+ */
 public final class Main extends Application {
     private static final int OFFSET_3 = 3;
     private static final int OFFSET_10 = 10;
@@ -21,7 +25,7 @@ public final class Main extends Application {
     private static final int MONEY_TEXT_SIZE = 20;
     private static final int ARC = 25;
 
-    public static GraphicsContext gc;
+    private static GraphicsContext graphicsContext;
     private static Scene scene;
 
     private static final int ROWS = GameManager.ROWS;
@@ -33,31 +37,71 @@ public final class Main extends Application {
     private static Inventory playerInventory;
 
     private void initGame() {
-        gameManager.setGraphicsContext(gc);
+        gameManager.setGraphicsContext(graphicsContext);
         board = gameManager.getBoard();
         player = gameManager.getPlayer();
         playerInventory = gameManager.getInventory();
     }
 
     private void movePlayerOnKeyPress() {
-        scene.setOnKeyPressed((new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(final KeyEvent event) {
-                switch(event.getCode()) {
-                    case RIGHT -> player.move(Direction.right, board.getBoard());
-                    case LEFT -> player.move(Direction.left, board.getBoard());
-                    case DOWN -> player.move(Direction.down, board.getBoard());
-                    case UP -> player.move(Direction.up, board.getBoard());
-                    case SPACE -> player.interact(board.getBoard());
-                    case DIGIT1 -> player.changeHand(0);
-                    case DIGIT2 -> player.changeHand(1);
-                    case DIGIT3 -> player.changeHand(2);
-                    case DIGIT4 -> player.changeHand(3);
-                    case DIGIT5 -> player.changeHand(4);
-                    case DIGIT6 -> player.changeHand(5);
-                }
+        final int digit0 = 0;
+        final int digit1 = 1;
+        final int digit2 = 2;
+        final int digit3 = 3;
+        final int digit4 = 4;
+        final int digit5 = 5;
+        scene.setOnKeyPressed((event -> {
+            switch (event.getCode()) {
+                case RIGHT -> player.move(Direction.right, board.getBoard());
+                case LEFT -> player.move(Direction.left, board.getBoard());
+                case DOWN -> player.move(Direction.down, board.getBoard());
+                case UP -> player.move(Direction.up, board.getBoard());
+                case SPACE -> player.interact(board.getBoard());
+                case DIGIT1 -> player.changeHand(digit0);
+                case DIGIT2 -> player.changeHand(digit1);
+                case DIGIT3 -> player.changeHand(digit2);
+                case DIGIT4 -> player.changeHand(digit3);
+                case DIGIT5 -> player.changeHand(digit4);
+                case DIGIT6 -> player.changeHand(digit5);
+                default -> { }
             }
         }));
+    }
+
+    private void drawToolBox() {
+        graphicsContext.setFill(Color.BURLYWOOD);
+        graphicsContext.fillRect(0, COLS * CELL_SIZE, ROWS * CELL_SIZE, CELL_SIZE);
+
+        playerInventory.checkItem();
+
+        for (int i = 0; i < Inventory.MAX_CAPACITY; i++) {
+            final int x = i * CELL_SIZE + OFFSET_3;
+            final int y = COLS * CELL_SIZE + OFFSET_3;
+            final Item item = playerInventory.getItem(i);
+
+            // draw outline
+            graphicsContext.setFill(Color.DARKGOLDENROD);
+            if (item != null && item == player.getHand()) {
+                graphicsContext.setFill(Color.CRIMSON);
+            }
+            graphicsContext.fillRoundRect(x, y, CELL_SIZE - OFFSET_3,
+                    CELL_SIZE - OFFSET_3, ARC, ARC);
+
+            graphicsContext.setFill(Color.MOCCASIN);
+            graphicsContext.fillRoundRect(x + OFFSET_3, y + OFFSET_3,
+                    CELL_SIZE - OFFSET_3 * OFFSET_3,
+                    CELL_SIZE - OFFSET_3 * OFFSET_3, ARC, ARC);
+
+            if (item != null) {
+                item.drawItem(graphicsContext,
+                        x + OFFSET_10 / 2, y + OFFSET_10 / 2, CELL_SIZE - OFFSET_10);
+                if (item.getQuantity() > 1) {
+                    graphicsContext.setFill(Color.BLACK);
+                    graphicsContext.fillText(String.valueOf(item.getQuantity()),
+                            x + OFFSET_3, y + OFFSET_10);
+                }
+            }
+        }
     }
 
     private void run() {
@@ -68,51 +112,20 @@ public final class Main extends Application {
         player.drawCharacter();
 
         // Tool box
-        gc.setFill(Color.BURLYWOOD);
-        gc.fillRect(0, COLS * CELL_SIZE, ROWS * CELL_SIZE, CELL_SIZE);
-
-        playerInventory.checkItem();
-
-        for (int i = 0; i < Inventory.MAX_CAPACITY; i++) {
-            final int x = i * CELL_SIZE + OFFSET_3;
-            final int y = COLS * CELL_SIZE + OFFSET_3;
-            final Item item = playerInventory.getItem(i);
-
-            // draw outline
-            gc.setFill(Color.DARKGOLDENROD);
-            if (item != null && item == player.getHand()) {
-                gc.setFill(Color.CRIMSON);
-            }
-            gc.fillRoundRect(x, y, CELL_SIZE - OFFSET_3,
-                    CELL_SIZE - OFFSET_3, ARC, ARC);
-
-            gc.setFill(Color.MOCCASIN);
-            gc.fillRoundRect(x + OFFSET_3, y + OFFSET_3,
-                    CELL_SIZE - OFFSET_3 * OFFSET_3,
-                    CELL_SIZE - OFFSET_3 * OFFSET_3, ARC, ARC);
-
-            if (item != null) {
-                item.drawItem(gc, x + OFFSET_10 / 2, y + OFFSET_10 / 2, CELL_SIZE - OFFSET_10);
-                if (item.getQuantity() > 1) {
-                    gc.setFill(Color.BLACK);
-                    gc.fillText(String.valueOf(item.getQuantity()),
-                            x + OFFSET_3, y + OFFSET_10);
-                }
-            }
-        }
+        drawToolBox();
 
         // Display money
-        gc.setFill(Color.FORESTGREEN);
-        gc.setFont(new Font(MONEY_TEXT_SIZE));
-        gc.fillText(player.getMoney(), ROWS * CELL_SIZE - CELL_SIZE * 2,
+        graphicsContext.setFill(Color.FORESTGREEN);
+        graphicsContext.setFont(new Font(MONEY_TEXT_SIZE));
+        graphicsContext.fillText(player.getMoney(), ROWS * CELL_SIZE - CELL_SIZE * 2,
                 COLS * CELL_SIZE + OFFSET_25 + OFFSET_3 * 2);
     }
 
     @Override
-    public void start(final Stage stage) throws Exception {
+    public void start(final Stage stage) {
         VBox layout = new VBox();
         Canvas canvas = new Canvas(ROWS * CELL_SIZE, COLS * CELL_SIZE + CELL_SIZE);
-        gc = canvas.getGraphicsContext2D();
+        graphicsContext = canvas.getGraphicsContext2D();
         layout.getChildren().add(canvas);
 
         gameManager = GameManager.getGameManager();
@@ -130,6 +143,11 @@ public final class Main extends Application {
         stage.show();
     }
 
+    /**
+     * Drives the program.
+     *
+     * @param args unused
+     */
     public static void main(final String[] args) {
         launch();
     }

@@ -5,11 +5,19 @@ import javafx.scene.image.Image;
 
 import java.util.Objects;
 
+/**
+ * Represents a Grass decorator in the game.
+ *
+ * @author Seogin Hong, Shawn Rim
+ * @version 2024
+ */
 public final class Grass extends Decorator {
-    // Todo: Change the image to a more appropriate one
-    private final static Image IMAGE = new Image(Objects.requireNonNull(Grass.class.getResourceAsStream("/Decorator/Grass.png")));
-    private final static int OFFSET = 10;
+    private static final Image IMAGE = new Image(Objects.requireNonNull(Grass.class.getResourceAsStream("/Decorator/Grass.png")));
+    private static final int OFFSET = 10;
 
+    /**
+     * Creates an instance of this Grass.
+     */
     public Grass() {
         super();
     }

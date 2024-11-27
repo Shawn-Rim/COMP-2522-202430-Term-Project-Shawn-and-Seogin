@@ -5,6 +5,12 @@ import javafx.scene.image.Image;
 
 import java.util.Objects;
 
+/**
+ * Represents a House decorator in the game.
+ *
+ * @author Seogin Hong, Shawn Rim
+ * @version 2024
+ */
 public final class House extends Decorator {
     private static final Image HOUSE = new Image(Objects.requireNonNull(
             House.class.getResourceAsStream("/House/House.png")));
@@ -13,6 +19,11 @@ public final class House extends Decorator {
 
     private final boolean showHouse;
 
+    /**
+     * Creates an instance of House.
+     *
+     * @param showHouse a boolean
+     */
     public House(final boolean showHouse) {
         super();
 

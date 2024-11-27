@@ -4,13 +4,25 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * Represents a Inventory for a Character.
+ *
+ * @author Seogin Hong, Shawn Rim
+ * @version 2024
+ */
 public final class Inventory implements Serializable {
+    /**
+     * Stores the max capacity of an inventory.
+     */
     public static final int MAX_CAPACITY = 6;
     private static int numOfInventory = 0;
 
     private final int inventoryID;
     private final Item[] items;
 
+    /**
+     * Creates an instance of Inventory.
+     */
     public Inventory() {
         this.items = new Item[MAX_CAPACITY];
 
@@ -22,6 +34,11 @@ public final class Inventory implements Serializable {
         this.inventoryID = numOfInventory;
     }
 
+    /**
+     * Adds an item to the items array.
+     *
+     * @param item an Item
+     */
     public void addItem(final Item item) {
         for (int i = 0; i < MAX_CAPACITY; i++) {
             if (this.items[i] != null && this.items[i].equals(item)) {
@@ -39,6 +56,9 @@ public final class Inventory implements Serializable {
         }
     }
 
+    /**
+     * Checks and remove items that has the quantity of 0.
+     */
     public void checkItem() {
         for (int i = 0; i < MAX_CAPACITY; i++) {
             if (this.items[i] != null && this.items[i].getQuantity() <= 0) {
@@ -47,6 +67,11 @@ public final class Inventory implements Serializable {
         }
     }
 
+    /**
+     * Removes the given item from the items array.
+     *
+     * @param item an Item
+     */
     public void removeItem(final Item item) {
         for (int i = 0; i < MAX_CAPACITY; i++) {
             if (this.items[i] != null && this.items[i].equals(item)) {
@@ -55,6 +80,13 @@ public final class Inventory implements Serializable {
         }
     }
 
+    /**
+     * Returns the item.
+     *
+     * @param index the index as an int
+     * @return an item in items array
+     * @throws IllegalArgumentException if index is out of bounds
+     */
     public Item getItem(final int index) {
         if (index < 0 || index >= MAX_CAPACITY) {
             throw new IllegalArgumentException("Index out of bounds.");

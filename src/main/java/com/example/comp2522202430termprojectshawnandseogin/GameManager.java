@@ -7,8 +7,17 @@ import java.util.Objects;
 
 
 public final class GameManager implements Serializable {
+    /**
+     * Stores the number of rows in a map.
+     */
     public static final int ROWS = 10;
+    /**
+     * Stores the number of columns in a map.
+     */
     public static final int COLS = 10;
+    /**
+     * Stores the cell size of a map.
+     */
     public static final int CELL_SIZE = 50;
     private static final String FILENAME = "SaveData.ser";
     private static final int STARTING_X = 3;
@@ -28,12 +37,18 @@ public final class GameManager implements Serializable {
         this.board.makeBoard();
     }
 
+    @Serial
     private void readObject(final ObjectInputStream inputStream)
             throws IOException, ClassNotFoundException {
         inputStream.defaultReadObject();
         setGraphicsContext(null);
     }
 
+    /**
+     * Returns the GameManager object.
+     *
+     * @return gameManager as GameManager
+     */
     public static GameManager getGameManager() {
         if (gameManager == null) {
             try (FileInputStream fileIn = new FileInputStream(FILENAME);
@@ -49,26 +64,54 @@ public final class GameManager implements Serializable {
         return gameManager;
     }
 
+    /**
+     * Returns the map of this game manager.
+     *
+     * @return board as Map
+     */
     public Map getBoard() {
         return this.board;
     }
 
+    /**
+     * Returns the player of this game manager.
+     *
+     * @return player as Player
+     */
     public Player getPlayer() {
         return this.player;
     }
 
+    /**
+     * Returns the inventory of this game manager.
+     *
+     * @return inventory as Inventory
+     */
     public Inventory getInventory() {
         return this.inventory;
     }
 
+    /**
+     * Returns the graphics context of this game manager.
+     *
+     * @return graphicsContext as GraphicsContext
+     */
     public GraphicsContext getGraphicsContext() {
         return this.graphicsContext;
     }
 
-    public void setGraphicsContext(final GraphicsContext gc) {
-        this.graphicsContext = gc;
+    /**
+     * Sets the graphics context of this game manager as the given graphicsContext.
+     *
+     * @param graphicsContext a GraphicsContext
+     */
+    public void setGraphicsContext(final GraphicsContext graphicsContext) {
+        this.graphicsContext = graphicsContext;
     }
 
+    /**
+     * Writes this game manager object to the FILENAME.
+     */
     public void saveGame() {
         try (FileOutputStream fileOut = new FileOutputStream(FILENAME);
              ObjectOutputStream outStream = new ObjectOutputStream(fileOut)) {
