@@ -2,10 +2,23 @@ package com.example.comp2522202430termprojectshawnandseogin;
 
 import javafx.scene.canvas.GraphicsContext;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
 
+/**
+ * Represents Game Manager of the game.
+ *
+ * @author Seogin Hong, Shawn Rim
+ * @version 2024
+ */
 public final class GameManager implements Serializable {
     /**
      * Stores the number of rows in a map.
@@ -123,12 +136,12 @@ public final class GameManager implements Serializable {
 
     @Override
     public String toString() {
-        return "GameManager{" +
-                "graphicsContext=" + this.graphicsContext +
-                ", board=" + this.board +
-                ", player=" + this.player +
-                ", inventory=" + this.inventory +
-                '}';
+        return "GameManager{"
+                + "graphicsContext=" + this.graphicsContext
+                + ", board=" + this.board
+                + ", player=" + this.player
+                + ", inventory=" + this.inventory
+                + '}';
     }
 
     @Override

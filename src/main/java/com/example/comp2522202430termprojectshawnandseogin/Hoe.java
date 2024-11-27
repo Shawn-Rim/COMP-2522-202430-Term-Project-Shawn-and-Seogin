@@ -32,7 +32,8 @@ public final class Hoe extends Tool {
     }
 
     @Override
-    public void drawItem(final GraphicsContext graphicsContext, final int x, final int y, final int cellSize) {
+    public void drawItem(final GraphicsContext graphicsContext,
+                         final int x, final int y, final int cellSize) {
         graphicsContext.drawImage(HOE, x, y, cellSize, cellSize);
     }
 }

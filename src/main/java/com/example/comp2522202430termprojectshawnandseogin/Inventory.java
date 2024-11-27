@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * Represents a Inventory for a Character.
+ * Represents an Inventory for a Character.
  *
  * @author Seogin Hong, Shawn Rim
  * @version 2024
@@ -47,7 +47,7 @@ public final class Inventory implements Serializable {
             }
         }
 
-        // If the items does not exist yet, add the item to an empty space
+        // If the items do not exist yet, add the item to an empty space
         for (int i = 0; i < MAX_CAPACITY; i++) {
             if (this.items[i] == null) {
                 this.items[i] = item;

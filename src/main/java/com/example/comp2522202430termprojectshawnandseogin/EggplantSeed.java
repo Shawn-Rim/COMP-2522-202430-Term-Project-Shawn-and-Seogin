@@ -26,7 +26,8 @@ public final class EggplantSeed extends Seed {
     }
 
     @Override
-    public void drawItem(final GraphicsContext graphicsContext, final int x, final int y, final int cellSize) {
+    public void drawItem(final GraphicsContext graphicsContext,
+                         final int x, final int y, final int cellSize) {
         graphicsContext.drawImage(EGGPLANT_SEED, x, y, cellSize, cellSize);
     }
 }

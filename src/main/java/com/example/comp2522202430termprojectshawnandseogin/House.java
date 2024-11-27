@@ -16,6 +16,7 @@ public final class House extends Decorator {
             House.class.getResourceAsStream("/House/House.png")));
     private static final Image GROUND = new Image(Objects.requireNonNull(
             House.class.getResourceAsStream("/Ground/middle.png")));
+    private static final int OFFSET = 3;
 
     private final boolean showHouse;
 
@@ -31,10 +32,17 @@ public final class House extends Decorator {
     }
 
     @Override
-    public void drawDecorator(final GraphicsContext gc, final int x, final int y, final int cellSize) {
+    public void drawDecorator(final GraphicsContext gc,
+                              final int x, final int y, final int cellSize) {
         gc.drawImage(GROUND, x * cellSize, y * cellSize, cellSize, cellSize);
         if (showHouse) {
-            gc.drawImage(HOUSE, x * cellSize - cellSize * 2, y * cellSize - cellSize * 2, cellSize * 3, cellSize * 3);
+            gc.drawImage(
+                    HOUSE,
+                    x * cellSize - cellSize * 2,
+                    y * cellSize - cellSize * 2,
+                    cellSize * OFFSET,
+                    cellSize * OFFSET
+            );
         }
     }
 

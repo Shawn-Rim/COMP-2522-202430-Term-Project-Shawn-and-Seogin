@@ -12,7 +12,8 @@ import java.util.Objects;
  * @version 2024
  */
 public final class Grass extends Decorator {
-    private static final Image IMAGE = new Image(Objects.requireNonNull(Grass.class.getResourceAsStream("/Decorator/Grass.png")));
+    private static final Image IMAGE = new Image(Objects.requireNonNull(
+                    Grass.class.getResourceAsStream("/Decorator/Grass.png")));
     private static final int OFFSET = 10;
 
     /**
@@ -23,8 +24,15 @@ public final class Grass extends Decorator {
     }
 
     @Override
-    public void drawDecorator(final GraphicsContext gc, final int x, final int y, final int cellSize) {
-        gc.drawImage(IMAGE, x * cellSize + OFFSET, y * cellSize + OFFSET, cellSize - OFFSET * 2, cellSize - OFFSET * 2);
+    public void drawDecorator(final GraphicsContext gc,
+                              final int x, final int y, final int cellSize) {
+        gc.drawImage(
+                IMAGE,
+                x * cellSize + OFFSET,
+                y * cellSize + OFFSET,
+                cellSize - OFFSET * 2,
+                cellSize - OFFSET * 2
+        );
     }
 
     @Override

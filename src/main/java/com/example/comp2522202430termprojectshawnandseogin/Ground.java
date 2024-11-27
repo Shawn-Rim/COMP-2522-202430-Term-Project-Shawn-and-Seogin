@@ -12,32 +12,23 @@ import java.util.Objects;
  * @version 2024
  */
 public final class Ground extends Tile {
-    private static final Image TOP_IMAGE =
-            new Image(Objects.requireNonNull(
+    private static final Image TOP_IMAGE = new Image(Objects.requireNonNull(
                     Ground.class.getResourceAsStream("/Ground/top.png")));
-    private static final Image BOTTOM_IMAGE =
-            new Image(Objects.requireNonNull(
+    private static final Image BOTTOM_IMAGE = new Image(Objects.requireNonNull(
                     Ground.class.getResourceAsStream("/Ground/bottom.png")));
-    private static final Image LEFT_IMAGE =
-            new Image(Objects.requireNonNull(
+    private static final Image LEFT_IMAGE = new Image(Objects.requireNonNull(
                     Ground.class.getResourceAsStream("/Ground/leftMiddle.png")));
-    private static final Image RIGHT_IMAGE =
-            new Image(Objects.requireNonNull(
+    private static final Image RIGHT_IMAGE = new Image(Objects.requireNonNull(
                     Ground.class.getResourceAsStream("/Ground/rightMiddle.png")));
-    private static final Image LEFT_TOP_IMAGE =
-            new Image(Objects.requireNonNull(
+    private static final Image LEFT_TOP_IMAGE = new Image(Objects.requireNonNull(
                     Ground.class.getResourceAsStream("/Ground/leftTop.png")));
-    private static final Image LEFT_BOTTOM_IMAGE =
-            new Image(Objects.requireNonNull(
+    private static final Image LEFT_BOTTOM_IMAGE = new Image(Objects.requireNonNull(
                     Ground.class.getResourceAsStream("/Ground/leftBottom.png")));
-    private static final Image RIGHT_TOP_IMAGE =
-            new Image(Objects.requireNonNull(
+    private static final Image RIGHT_TOP_IMAGE = new Image(Objects.requireNonNull(
                     Ground.class.getResourceAsStream("/Ground/rightTop.png")));
-    private static final Image RIGHT_BOTTOM_IMAGE =
-            new Image(Objects.requireNonNull(
+    private static final Image RIGHT_BOTTOM_IMAGE = new Image(Objects.requireNonNull(
                     Ground.class.getResourceAsStream("/Ground/rightBottom.png")));
-    private static final Image MIDDLE_IMAGE =
-            new Image(Objects.requireNonNull(
+    private static final Image MIDDLE_IMAGE = new Image(Objects.requireNonNull(
                     Ground.class.getResourceAsStream("/Ground/middle.png")));
 
     private final GroundDirection dir;
