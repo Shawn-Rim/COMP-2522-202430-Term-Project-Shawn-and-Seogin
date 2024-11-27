@@ -32,4 +32,29 @@ public final class House extends Decorator {
         GameManager.getGameManager().getBoard().growPlants();
         GameManager.getGameManager().saveGame();
     }
+
+    @Override
+    public String toString() {
+        return "House{" + "showHouse=" + this.showHouse + '}';
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+
+        House house = (House) object;
+
+        return this.showHouse == house.showHouse;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.showHouse);
+    }
 }

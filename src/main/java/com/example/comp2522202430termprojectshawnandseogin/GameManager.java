@@ -3,6 +3,7 @@ package com.example.comp2522202430termprojectshawnandseogin;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.*;
+import java.util.Objects;
 
 
 public final class GameManager implements Serializable {
@@ -75,5 +76,26 @@ public final class GameManager implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "GameManager{" +
+                "graphicsContext=" + this.graphicsContext +
+                ", board=" + this.board +
+                ", player=" + this.player +
+                ", inventory=" + this.inventory +
+                '}';
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        // There can only be one instance of GameManager
+        return this == object;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.graphicsContext, this.board, this.player, this.inventory);
     }
 }

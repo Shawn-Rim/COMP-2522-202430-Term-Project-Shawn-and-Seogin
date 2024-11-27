@@ -1,10 +1,14 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Objects;
 
 public final class Inventory implements Serializable {
     public static final int MAX_CAPACITY = 6;
+    private static int numOfInventory = 0;
 
+    private final int inventoryID;
     private final Item[] items;
 
     public Inventory() {
@@ -13,6 +17,9 @@ public final class Inventory implements Serializable {
         // add items to the inventory
         this.items[0] = new Hoe();
         this.items[1] = new WateringCan();
+
+        numOfInventory++;
+        this.inventoryID = numOfInventory;
     }
 
     public void addItem(final Item item) {
@@ -54,5 +61,30 @@ public final class Inventory implements Serializable {
         }
 
         return this.items[index];
+    }
+
+    @Override
+    public String toString() {
+        return "Inventory{" + "items=" + Arrays.toString(this.items) + '}';
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+
+        Inventory inventory = (Inventory) object;
+
+        return this.inventoryID == inventory.inventoryID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.inventoryID, Arrays.hashCode(this.items));
     }
 }

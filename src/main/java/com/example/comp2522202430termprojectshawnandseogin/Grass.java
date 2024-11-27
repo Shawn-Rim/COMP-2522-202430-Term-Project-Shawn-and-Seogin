@@ -20,7 +20,10 @@ public final class Grass extends Decorator {
     }
 
     @Override
-    public void interact(final Item item) {
+    public void interact(final Item item) { }
 
+    @Override
+    public String toString() {
+        return "Grass{}";
     }
 }

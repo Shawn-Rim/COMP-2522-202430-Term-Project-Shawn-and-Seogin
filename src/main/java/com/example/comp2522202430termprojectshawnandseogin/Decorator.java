@@ -10,5 +10,4 @@ public abstract class Decorator implements Serializable {
     public abstract void drawDecorator(GraphicsContext gc, int x, int y, int cellSize);
 
     public abstract void interact(Item item);
-
 }

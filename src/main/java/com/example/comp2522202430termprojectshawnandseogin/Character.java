@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public abstract class Character implements Serializable {
     protected Inventory inventory;
@@ -43,5 +44,53 @@ public abstract class Character implements Serializable {
             gc.fillRect(
                     this.xCoordinate * this.cellSize, this.yCoordinate * this.cellSize,
                     this.cellSize, this.cellSize);
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("Character{")
+                .append("inventory=")
+                .append(this.inventory)
+                .append(", xCoordinate=")
+                .append(this.xCoordinate)
+                .append(", yCoordinate=")
+                .append(this.yCoordinate)
+                .append(", cellSize=")
+                .append(this.cellSize)
+                .append('}')
+                .toString();
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+
+        Character character = (Character) object;
+
+        if (this.xCoordinate != character.xCoordinate) {
+            return false;
+        }
+
+        if (this.yCoordinate != character.yCoordinate) {
+            return false;
+        }
+
+        if (this.cellSize != character.cellSize) {
+            return false;
+        }
+
+        return  this.inventory.equals(character.inventory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inventory, xCoordinate, yCoordinate, cellSize);
     }
 }

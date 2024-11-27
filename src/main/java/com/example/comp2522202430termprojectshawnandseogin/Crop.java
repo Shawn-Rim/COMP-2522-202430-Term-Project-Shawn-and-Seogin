@@ -1,6 +1,7 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 public abstract class Crop extends Item {
     protected BigInteger sellPrice;
@@ -18,5 +19,37 @@ public abstract class Crop extends Item {
 
     public BigInteger getSellPrice() {
         return this.sellPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Crop{" +
+                "name='" + this.name + '\'' +
+                ", quantity=" + this.quantity +
+                ", sellPrice=" + this.sellPrice + '}';
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+
+        if (!super.equals(object)) {
+            return false;
+        }
+
+        Crop crop = (Crop) object;
+
+        return this.sellPrice.equals(crop.sellPrice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), this.sellPrice);
     }
 }
