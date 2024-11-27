@@ -8,6 +8,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This class defines map using Tile for game.
+ *
+ * @author Shawn and Seogin
+ * @version 2024
+ */
 public final class Map implements Serializable {
     private static final Random RANDOM = new Random();
 
@@ -16,7 +22,16 @@ public final class Map implements Serializable {
     private final int cellSize;
     private final List<Tile> board;
 
-    public Map(final int rows, final int cols, final int cellSize) {
+    /**
+     * Constructs an object of type map.
+     *
+     * @param rows number of tile in row as an int
+     * @param cols number of tile in column as an int
+     * @param cellSize size of tile as an int
+     * @throws IllegalArgumentException when rows and cols are less than or equal to 0
+     * @throws IllegalArgumentException when cellSize is less than 0
+     */
+    public Map(final int rows, final int cols, final int cellSize) throws IllegalArgumentException {
         if (rows <= 0 || cols <= 0) {
             throw new IllegalArgumentException("Rows or columns must be a positive number.");
         } else if (cellSize < 0) {
@@ -29,12 +44,19 @@ public final class Map implements Serializable {
         this.board = new ArrayList<Tile>();
     }
 
+    /**
+     * Returns unmodifiable List of Tile to serializable.
+     *
+     * @return List of Tile
+     */
     public List<Tile> getBoard() {
         return Collections.unmodifiableList(this.board);
     }
 
+    /**
+     * Initializes board for game.
+     */
     public void makeBoard() {
-        // TODO: Implement actual board later. This is for testing purpose.
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if (i == 0 || j == 0 || i == rows - 1 || j == cols - 1) {
@@ -87,6 +109,9 @@ public final class Map implements Serializable {
         }
     }
 
+    /**
+     * Draws board using GraphicsContext of GameManager.
+     */
     public void drawBoard() {
         GraphicsContext gc = GameManager.getGameManager().getGraphicsContext();
         // Draw each tile
@@ -95,6 +120,9 @@ public final class Map implements Serializable {
         }
     }
 
+    /**
+     * Changes status of plants based on the conditions.
+     */
     public void growPlants() {
         for (Tile tile : this.board) {
             if (tile instanceof Soil soil) {

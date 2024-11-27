@@ -5,10 +5,16 @@ import javafx.scene.image.Image;
 
 import java.util.Objects;
 
+/**
+ * Draws progress of crops based on growth rate and interact with player to harvest.
+ *
+ * @author Shawn and Seogin
+ * @version 2024
+ */
 public final class Planted extends Decorator {
-    private final static int IMAGE_SIZE = 4;
-    private final static Image[] CARROTS = new Image[IMAGE_SIZE];
-    private final static Image[] EGGPLANTS = new Image[IMAGE_SIZE];
+    private static final int IMAGE_SIZE = 4;
+    private static final Image[] CARROTS = new Image[IMAGE_SIZE];
+    private static final Image[] EGGPLANTS = new Image[IMAGE_SIZE];
 
     private double progress;
     private final Seed seed;
@@ -23,6 +29,12 @@ public final class Planted extends Decorator {
         }
     }
 
+    /**
+     * Constructs an object Type of Planted.
+     *
+     * @param seed of Seed
+     * @param soil of Soil
+     */
     public Planted(final Seed seed, final Soil soil) {
         super();
 
@@ -31,12 +43,21 @@ public final class Planted extends Decorator {
         this.soil = soil;
     }
 
+    /**
+     * Draws crop based on the progress.
+     *
+     * @param gc of GraphicsContext
+     * @param x of x coordinate
+     * @param y of y coordinate
+     * @param cellSize of int
+     */
     @Override
-    public void drawDecorator(final GraphicsContext gc, final int x, final int y, final int cellSize) {
+    public void drawDecorator(final GraphicsContext gc,
+                              final int x, final int y, final int cellSize) {
         int imageIndex = Math.min((int) Math.floor(this.progress * IMAGE_SIZE), IMAGE_SIZE - 1);
         Image[] images;
 
-        switch(this.seed.getName()) {
+        switch (this.seed.getName()) {
             case "Carrot Seed" -> images = CARROTS;
             case "Eggplant Seed" -> images = EGGPLANTS;
             default -> images = CARROTS;
@@ -45,10 +66,17 @@ public final class Planted extends Decorator {
         gc.drawImage(images[imageIndex], x * cellSize, y * cellSize, cellSize, cellSize);
     }
 
+    /**
+     * Adds growth rate to progress.
+     */
     public void growPlant() {
         this.progress = Math.min(this.progress + this.seed.getGrowthRate(), 1);
     }
 
+    /**
+     * Harvests crops when player interact with any item.
+     * @param item of Item
+     */
     @Override
     public void interact(final Item item) {
         if (this.progress >= 1) {

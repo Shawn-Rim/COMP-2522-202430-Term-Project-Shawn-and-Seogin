@@ -6,6 +6,13 @@ import javafx.scene.image.Image;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Represents a tile that can be plantable, watered, or dry,
+ * and displays the appropriate image based on its state.
+ *
+ * @author Shawn and Seogin
+ * @version 2024
+ */
 public final class Soil extends Tile {
     private static final int IMAGE_SIZE = 10;
     private static final Random RANDOM = new Random();
@@ -15,25 +22,28 @@ public final class Soil extends Tile {
 
     private boolean isPlantable;
     private boolean isWatered;
-    private int imageNum;
+    private final int imageNum;
 
     static {
         for (int i = 1; i <= IMAGE_SIZE; i++) {
-            try {
-                NON_PLANTABLE[i - 1] = new Image(Objects.requireNonNull(
-                        Soil.class.getResourceAsStream("/Soil/Non_plantable/noPlant" + i + ".png")));
-                PLANTABLE_NO_WATER[i - 1] = new Image(Objects.requireNonNull(
-                        Soil.class.getResourceAsStream("/Soil/Plantable_nonWater/noWater" + i + ".png")));
-                PLANTABLE_WATER[i - 1] = new Image(Objects.requireNonNull(
-                        Soil.class.getResourceAsStream("/Soil/Plantable_water/waterSoil" + i + ".png")));
-            } catch (NullPointerException e) {
-                System.err.println("Failed to load image for index " + i);
-                e.printStackTrace();
-            }
+            NON_PLANTABLE[i - 1] = new Image(Objects.requireNonNull(
+                    Soil.class.getResourceAsStream("/Soil/Non_plantable/noPlant" + i + ".png")));
+            PLANTABLE_NO_WATER[i - 1] = new Image(Objects.requireNonNull(
+                    Soil.class.getResourceAsStream(
+                            "/Soil/Plantable_nonWater/noWater" + i + ".png")));
+            PLANTABLE_WATER[i - 1] = new Image(Objects.requireNonNull(
+                    Soil.class.getResourceAsStream(
+                            "/Soil/Plantable_water/waterSoil" + i + ".png")));
         }
     }
 
-
+    /**
+     * Constructs an object Type of Soil.
+     *
+     * @param xCoordinate of int
+     * @param yCoordinate of int
+     * @param cellSize of int
+     */
     public Soil(final int xCoordinate, final int yCoordinate, final int cellSize) {
         super(xCoordinate, yCoordinate, cellSize);
 
@@ -42,14 +52,27 @@ public final class Soil extends Tile {
         this.imageNum = RANDOM.nextInt(IMAGE_SIZE);
     }
 
+    /**
+     * Returns current status of soil if it is watered.
+     *
+     * @return true if it is watered, false otherwise
+     */
     public boolean getIsWatered() {
         return this.isWatered;
     }
 
+    /**
+     * Returns current status of soil if it is plantable.
+     *
+     * @return true if it is plantable, false otherwise
+     */
     public boolean getIsPlantable() {
         return this.isPlantable;
     }
 
+    /**
+     * Toggles status of soil.
+     */
     public void togglePlantable() {
         if (this.decorator == null) {
             this.isWatered = false;
@@ -57,14 +80,25 @@ public final class Soil extends Tile {
         }
     }
 
+    /**
+     * Changes the soil to watered.
+     */
     public void waterSoil() {
         this.isWatered = true;
     }
 
+    /**
+     * Changes the soil to dry.
+     */
     public void drySoil() {
         this.isWatered = false;
     }
 
+    /**
+     * Draws soil based on the status.
+     *
+     * @param gc of GraphicsContext
+     */
     @Override
     public void drawTile(final GraphicsContext gc) {
         Image image;
@@ -77,7 +111,8 @@ public final class Soil extends Tile {
             image = NON_PLANTABLE[imageNum];
         }
 
-        gc.drawImage(image, this.xCoordinate * this.cellSize, this.yCoordinate * this.cellSize, this.cellSize, this.cellSize);
+        gc.drawImage(image, this.xCoordinate * this.cellSize,
+                this.yCoordinate * this.cellSize, this.cellSize, this.cellSize);
         super.drawTile(gc);
     }
 }
