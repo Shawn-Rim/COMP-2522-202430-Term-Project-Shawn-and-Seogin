@@ -52,7 +52,8 @@ public final class NPC extends Decorator {
      * @param cellSize of int
      */
     @Override
-    public void drawDecorator(final GraphicsContext gc, final int x, final int y, final int cellSize) {
+    public void drawDecorator(final GraphicsContext gc, final int x, final int y,
+                              final int cellSize) {
         gc.drawImage(GROUND, x * cellSize, y * cellSize, cellSize, cellSize);
         gc.drawImage(NPC, x * cellSize, y * cellSize, cellSize, cellSize);
     }
