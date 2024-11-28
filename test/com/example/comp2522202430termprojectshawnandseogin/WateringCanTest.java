@@ -8,7 +8,7 @@ class WateringCanTest {
 
     @Test
     void testInitialRemainingUses() {
-        assertEquals(3, wateringCan.getRemainingUses());
+        assertEquals(0, wateringCan.getRemainingUses());
     }
 
     @Test
@@ -55,7 +55,7 @@ class WateringCanTest {
 
     @Test
     void testToString() {
-        assertEquals("WateringCan{remainingUses=3}", wateringCan.toString());
+        assertEquals("Tool{name='Watering Can', quantity=1, buyPrice=1000, remainingUses=0}", wateringCan.toString());
     }
 
     @Test

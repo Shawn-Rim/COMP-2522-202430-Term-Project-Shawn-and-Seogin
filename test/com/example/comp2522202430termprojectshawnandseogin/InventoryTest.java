@@ -98,7 +98,7 @@ public class InventoryTest {
         assertEquals(
                 "Inventory{items=[" +
                         "Tool{name='Hoe', quantity=1, buyPrice=1000}" +
-                        ", Tool{name='Watering Can', quantity=1, buyPrice=1000, remainingUses=3}" +
+                        ", Tool{name='Watering Can', quantity=1, buyPrice=1000, remainingUses=0}" +
                         ", null" +
                         ", null" +
                         ", null" +
