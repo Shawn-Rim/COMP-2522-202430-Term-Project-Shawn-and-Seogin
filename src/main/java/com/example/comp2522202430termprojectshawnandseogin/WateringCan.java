@@ -87,7 +87,7 @@ public final class WateringCan extends Tool {
      * @return boolean
      */
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (this == object) {
             return true;
         }
