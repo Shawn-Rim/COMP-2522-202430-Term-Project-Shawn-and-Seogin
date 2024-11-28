@@ -55,7 +55,7 @@ class WateringCanTest {
 
     @Test
     void testToString() {
-        assertEquals("Item{name='Watering Can', quantity=1}", wateringCan.toString());
+        assertEquals("WateringCan{remainingUses=3}", wateringCan.toString());
     }
 
     @Test
