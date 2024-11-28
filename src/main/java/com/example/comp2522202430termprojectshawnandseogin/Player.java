@@ -325,9 +325,24 @@ public final class Player extends Character {
      */
     @Override
     public String toString() {
-        return "Player{" + "currentFrame=" + currentFrame + ", money="
-                + money + ", view=" + view + ", hand=" + hand + ", frameIndex="
-                + frameIndex + ", lastFrameTime=" + lastFrameTime + '}';
+        return new StringBuilder()
+                .append("Player{")
+                .append("inventory=")
+                .append(this.inventory)
+                .append(", xCoordinate=")
+                .append(this.xCoordinate)
+                .append(", yCoordinate=")
+                .append(this.yCoordinate)
+                .append(", cellSize=")
+                .append(this.cellSize)
+                .append(", money=")
+                .append(this.money)
+                .append(", view=")
+                .append(this.view)
+                .append(", hand=")
+                .append(this.hand)
+                .append('}')
+                .toString();
     }
 
     /**
@@ -341,16 +356,26 @@ public final class Player extends Character {
         if (this == object) {
             return true;
         }
+
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
+
         if (!super.equals(object)) {
             return false;
         }
+
         Player player = (Player) object;
-        return frameIndex == player.frameIndex && lastFrameTime == player.lastFrameTime
-                && Objects.equals(currentFrame, player.currentFrame) && Objects.equals(money, player.money)
-                && view == player.view && Objects.equals(hand, player.hand);
+
+        if (!this.money.equals(player.money)) {
+            return false;
+        }
+
+        if (this.view != player.view) {
+            return false;
+        }
+
+        return this.hand.equals(player.hand);
     }
 
     /**
@@ -360,6 +385,6 @@ public final class Player extends Character {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), currentFrame, money, view, hand, frameIndex, lastFrameTime);
+        return Objects.hash(super.hashCode(), this.money, this.view, this.hand);
     }
 }
