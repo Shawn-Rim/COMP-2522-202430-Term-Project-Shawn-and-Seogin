@@ -57,10 +57,10 @@ public final class Planted extends Decorator {
         int imageIndex = Math.min((int) Math.floor(this.progress * IMAGE_SIZE), IMAGE_SIZE - 1);
         Image[] images;
 
-        switch (this.seed.getName()) {
-            case "Carrot Seed" -> images = CARROTS;
-            case "Eggplant Seed" -> images = EGGPLANTS;
-            default -> images = CARROTS;
+        if (this.seed.getName().equals("Eggplant Seed")) {
+            images = EGGPLANTS;
+        } else {
+            images = CARROTS;
         }
 
         gc.drawImage(images[imageIndex], x * cellSize, y * cellSize, cellSize, cellSize);
@@ -119,7 +119,16 @@ public final class Planted extends Decorator {
             return false;
         }
         Planted planted = (Planted) object;
-        return Double.compare(progress, planted.progress) == 0 && Objects.equals(seed, planted.seed) && Objects.equals(soil, planted.soil);
+
+        if (Double.compare(this.progress, planted.progress) != 0) {
+            return false;
+        }
+
+        if (!this.seed.equals(planted.seed)) {
+            return false;
+        }
+
+        return this.soil.equals(planted.soil);
     }
 
     /**
