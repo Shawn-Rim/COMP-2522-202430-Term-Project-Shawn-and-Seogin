@@ -348,7 +348,9 @@ public final class Player extends Character {
             return false;
         }
         Player player = (Player) object;
-        return frameIndex == player.frameIndex && lastFrameTime == player.lastFrameTime && Objects.equals(currentFrame, player.currentFrame) && Objects.equals(money, player.money) && view == player.view && Objects.equals(hand, player.hand);
+        return frameIndex == player.frameIndex && lastFrameTime == player.lastFrameTime
+                && Objects.equals(currentFrame, player.currentFrame) && Objects.equals(money, player.money)
+                && view == player.view && Objects.equals(hand, player.hand);
     }
 
     /**
