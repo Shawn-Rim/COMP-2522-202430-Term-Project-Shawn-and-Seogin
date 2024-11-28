@@ -127,7 +127,8 @@ public abstract class Tile implements Serializable {
             return false;
         }
         Tile tile = (Tile) object;
-        return xCoordinate == tile.xCoordinate && yCoordinate == tile.yCoordinate && cellSize == tile.cellSize && Objects.equals(decorator, tile.decorator);
+        return xCoordinate == tile.xCoordinate && yCoordinate == tile.yCoordinate
+                && cellSize == tile.cellSize && Objects.equals(decorator, tile.decorator);
     }
 
     /**
