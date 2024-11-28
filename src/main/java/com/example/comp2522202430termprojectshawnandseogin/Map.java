@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -41,7 +42,7 @@ public final class Map implements Serializable {
         this.rows = rows;
         this.cols = cols;
         this.cellSize = cellSize;
-        this.board = new ArrayList<Tile>();
+        this.board = new ArrayList<>();
     }
 
     /**
@@ -57,49 +58,59 @@ public final class Map implements Serializable {
      * Initializes board for game.
      */
     public void makeBoard() {
+        final int two = 2;
+        final int tree = 3;
+        final int four = 4;
+        final int seven = 7;
+
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if (i == 0 || j == 0 || i == rows - 1 || j == cols - 1) {
                     this.board.add(new Water(i, j, this.cellSize));
-                } else if (i == 3 && j == 3) {
-                    Water water = new Water(i, j, this.cellSize);
-                    water.setDecorator(new WaterWell());
-                    this.board.add(water);
-                } else if (i > 4 && i <= 7 && j > 1 && j <= 3) {
+                } else if (i == tree && j == tree) {
                     Water water = new Water(i, j, this.cellSize);
 
-                    if (i == 7 && j == 3) {
+                    water.setDecorator(new WaterWell());
+
+                    this.board.add(water);
+                } else if (i > four && i <= seven && j > 1 && j <= tree) {
+                    Water water = new Water(i, j, this.cellSize);
+
+                    if (i == seven && j == tree) {
                         water.setDecorator(new House(true));
                     } else  {
                         water.setDecorator(new House(false));
                     }
 
                     this.board.add(water);
-                } else if (i == 7 && j == 7) {
+                } else if (i == seven && j == seven) {
                     Water water = new Water(i, j, cellSize);
+
                     water.setDecorator(new NPC());
+
                     this.board.add(water);
-                } else if (j == 4 && i != 1 && i != rows - 2) {
+                } else if (j == four && i != 1 && i != rows - two) {
                     this.board.add(new Soil(i, j, this.cellSize));
                 } else if (i == 1 && j == 1) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.leftTop));
-                } else if (i == rows-2 && j == 1) {
+                } else if (i == rows - two && j == 1) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.rightTop));
-                } else if (i == 1 && j == cols - 2) {
+                } else if (i == 1 && j == cols - two) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.leftBottom));
-                } else if (i == rows-2 && j == cols - 2) {
+                } else if (i == rows - two && j == cols - two) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.rightBottom));
                 } else if (j == 1) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.top));
                 } else if (i == 1) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.left));
-                } else if (i == rows-2) {
+                } else if (i == rows - two) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.right));
-                } else if (j == cols-2) {
+                } else if (j == cols - two) {
                     this.board.add(new Ground(i, j, this.cellSize, GroundDirection.bottom));
                 } else {
                     Ground ground = new Ground(i, j, this.cellSize);
-                    if (RANDOM.nextInt(2) == 0) {
+
+                    if (RANDOM.nextInt(two) == 0) {
                         ground.setDecorator(new Grass());
                     }
 
@@ -133,5 +144,45 @@ public final class Map implements Serializable {
                 soil.drySoil();
             }
         }
+    }
+
+    /**
+     * Returns a String representation of this Map.
+     *
+     * @return description as a String
+     */
+    @Override
+    public String toString() {
+        return "Map{" + "rows=" + rows + ", cols=" + cols
+                + ", cellSize=" + cellSize + ", board=" + board + '}';
+    }
+
+    /**
+     * Compares this Map object with another object for equality.
+     *
+     * @param object of Object
+     * @return boolean
+     */
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        Map map = (Map) object;
+        return rows == map.rows && cols == map.cols && cellSize == map.cellSize
+                && Objects.equals(board, map.board);
+    }
+
+    /**
+     * Returns the hash code value for this Map object.
+     *
+     * @return hashcode as an int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(rows, cols, cellSize, board);
     }
 }
