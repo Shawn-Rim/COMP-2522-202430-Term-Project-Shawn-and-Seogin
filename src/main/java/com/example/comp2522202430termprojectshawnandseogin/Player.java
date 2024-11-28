@@ -116,13 +116,16 @@ public final class Player extends Character {
      * Updates the current frame for animation based on time and cycles through the provided frames.
      *
      * @param frames Array of Image
+     * @param dir Direction to animate
      */
-    private void animate(final Image[] frames) {
+    private void animate(final Image[] frames, final Direction dir) {
+        this.view = dir;
+
         long now = System.nanoTime();
-        if (now - lastFrameTime > 0) {
-            frameIndex = (frameIndex + 1) % frames.length;
-            currentFrame = frames[frameIndex];
-            lastFrameTime = now;
+        if (now - this.lastFrameTime > 0) {
+            this.frameIndex = (this.frameIndex + 1) % frames.length;
+            this.currentFrame = frames[this.frameIndex];
+            this.lastFrameTime = now;
         }
     }
 
@@ -159,29 +162,25 @@ public final class Player extends Character {
                 if (this.view == dir && validMove(board, this.xCoordinate, this.yCoordinate - 1)) {
                     this.yCoordinate--;
                 }
-                this.view = Direction.up;
-                animate(BACK_IMAGES);
+                animate(BACK_IMAGES, Direction.up);
             }
             case down -> {
                 if (this.view == dir && validMove(board, this.xCoordinate, this.yCoordinate + 1)) {
                     this.yCoordinate++;
                 }
-                this.view = Direction.down;
-                animate(FRONT_IMAGES);
+                animate(FRONT_IMAGES, Direction.down);
             }
             case left -> {
                 if (this.view == dir && validMove(board, this.xCoordinate - 1, this.yCoordinate)) {
                     this.xCoordinate--;
                 }
-                this.view = Direction.left;
-                animate(LEFT_IMAGES);
+                animate(LEFT_IMAGES, Direction.left);
             }
             case right -> {
                 if (this.view == dir && validMove(board, this.xCoordinate + 1, this.yCoordinate)) {
                     this.xCoordinate++;
                 }
-                this.view = Direction.right;
-                animate(RIGHT_IMAGES);
+                animate(RIGHT_IMAGES, Direction.right);
             }
             default -> throw new IllegalArgumentException("Invalid Direction.");
         }
@@ -254,6 +253,16 @@ public final class Player extends Character {
             return;
         }
 
+        interact(interactingTile);
+    }
+
+    /**
+     * Interacts with the given Tile.
+     *
+     * @param interactingTile a Tile to interact with
+     * @throws IllegalStateException if the view is invalid
+     */
+    public void interact(final Tile interactingTile) throws IllegalStateException {
         // Use tool if interacting tile is Soil and current item in hand is Tool
         if (interactingTile instanceof Soil && this.hand instanceof Tool) {
             ((Tool) this.hand).useTool((Soil) interactingTile);

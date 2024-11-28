@@ -25,7 +25,7 @@ public final class WateringCan extends Tool {
      */
     public WateringCan() {
         super("Watering Can", BUY_PRICE);
-        this.remainingUses = USES;
+        this.remainingUses = 0;
     }
 
     /**
@@ -77,7 +77,12 @@ public final class WateringCan extends Tool {
      */
     @Override
     public String toString() {
-        return "WateringCan{" + "remainingUses=" + remainingUses + '}';
+        return "Tool{"
+                + "name='" + this.name + '\''
+                + ", quantity=" + this.quantity
+                + ", buyPrice=" + this.buyPrice
+                + ", remainingUses=" + remainingUses
+                + '}';
     }
 
     /**
@@ -91,14 +96,18 @@ public final class WateringCan extends Tool {
         if (this == object) {
             return true;
         }
+
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
+
         if (!super.equals(object)) {
             return false;
         }
-        WateringCan that = (WateringCan) object;
-        return remainingUses == that.remainingUses;
+
+        WateringCan wateringCan = (WateringCan) object;
+
+        return remainingUses == wateringCan.remainingUses;
     }
 
     /**

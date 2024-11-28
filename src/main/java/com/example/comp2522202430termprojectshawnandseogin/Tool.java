@@ -47,7 +47,11 @@ public abstract class Tool extends Item {
      */
     @Override
     public String toString() {
-        return "Tool{" + "buyPrice=" + buyPrice + '}';
+        return "Tool{"
+                + "name='" + this.name + '\''
+                + ", quantity=" + this.quantity
+                + ", buyPrice="+ this.buyPrice
+                + '}';
     }
 
     /**

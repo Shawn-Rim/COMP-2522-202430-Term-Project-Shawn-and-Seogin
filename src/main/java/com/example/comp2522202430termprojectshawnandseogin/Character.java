@@ -138,11 +138,7 @@ public abstract class Character implements Serializable {
             return false;
         }
 
-        if (this.cellSize != character.cellSize) {
-            return false;
-        }
-
-        return  this.inventory.equals(character.inventory);
+        return this.cellSize == character.cellSize;
     }
 
     /**
@@ -152,6 +148,6 @@ public abstract class Character implements Serializable {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(inventory, xCoordinate, yCoordinate, cellSize);
+        return Objects.hash(xCoordinate, yCoordinate, cellSize);
     }
 }
