@@ -10,9 +10,9 @@ You are stranded on an island where you need to pay taxes and utilities to survi
 ## How to play
 
 ### Controls
-- W A S D - move player
-- SPACE - interact
-- 1~5 - change item
+- ARROW KEYS - Move player
+- SPACE - Interact
+- 1 ~ 5 - Change item
 
 ### Interactions Guides
 - HOUSE - Interact to save game.
