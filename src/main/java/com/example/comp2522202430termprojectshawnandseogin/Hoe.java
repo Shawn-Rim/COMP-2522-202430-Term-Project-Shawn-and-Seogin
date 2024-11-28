@@ -27,7 +27,6 @@ public final class Hoe extends Tool {
 
     @Override
     public void useTool(final Soil soil) {
-        // to-do: implement useTool
         soil.togglePlantable();
     }
 
