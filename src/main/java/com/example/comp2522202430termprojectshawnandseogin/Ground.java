@@ -58,6 +58,15 @@ public final class Ground extends Tile {
         this.dir = dir;
     }
 
+    /**
+     * Returns the direction of this ground.
+     *
+     * @return dir as GroundDirection
+     */
+    public GroundDirection getDir() {
+        return this.dir;
+    }
+
     @Override
     public void drawTile(final GraphicsContext gc) {
         Image image;
@@ -79,5 +88,35 @@ public final class Ground extends Tile {
         gc.drawImage(image, this.xCoordinate * this.cellSize, this.yCoordinate * this.cellSize,
                 this.cellSize, this.cellSize);
         super.drawTile(gc);
+    }
+
+    @Override
+    public String toString() {
+        return "Ground{"
+                + "decorator=" + decorator
+                + ", xCoordinate=" + xCoordinate
+                + ", yCoordinate=" + yCoordinate
+                + ", cellSize=" + cellSize
+                + ", dir=" + dir + '}';
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+
+        if (!super.equals(object)) {
+            return false;
+        }
+
+        Ground ground = (Ground) object;
+
+        return this.dir == ground.dir;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), this.dir);
     }
 }
