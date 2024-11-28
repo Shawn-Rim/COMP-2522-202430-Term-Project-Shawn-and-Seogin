@@ -115,4 +115,42 @@ public final class Soil extends Tile {
                 this.yCoordinate * this.cellSize, this.cellSize, this.cellSize);
         super.drawTile(gc);
     }
+
+    /**
+     * Returns a String representation of this Soil.
+     *
+     * @return description as a String
+     */
+    @Override
+    public String toString() {
+        return "Soil{" + "isPlantable=" + isPlantable + ", isWatered=" + isWatered + '}';
+    }
+
+    /**
+     * Compares this Soil object with another object for equality.
+     *
+     * @param object of Object
+     * @return boolean
+     */
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        Soil soil = (Soil) object;
+        return isPlantable == soil.isPlantable && isWatered == soil.isWatered;
+    }
+
+    /**
+     * Returns the hash code value for this Soil object.
+     *
+     * @return hashcode as an int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(isPlantable, isWatered);
+    }
 }

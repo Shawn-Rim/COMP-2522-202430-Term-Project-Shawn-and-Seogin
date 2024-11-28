@@ -24,9 +24,8 @@ public final class WateringCan extends Tool {
      * Constructs an object Type of WateringCan.
      */
     public WateringCan() {
-        final int defaultUse = 3;
         super("Watering Can", BUY_PRICE);
-        this.remainingUses = defaultUse;
+        this.remainingUses = USES;
     }
 
     /**
@@ -50,6 +49,15 @@ public final class WateringCan extends Tool {
     }
 
     /**
+     * Returns remaining uses of watering can.
+     *
+     * @return remainingUses as an int
+     */
+    public int getRemainingUses() {
+        return this.remainingUses;
+    }
+
+    /**
      * Draws watering can image.
      *
      * @param gc a GraphicsContext
@@ -60,5 +68,46 @@ public final class WateringCan extends Tool {
     @Override
     public void drawItem(final GraphicsContext gc, final int x, final int y, final int cellSize) {
         gc.drawImage(WATERING_CAN, x, y, cellSize, cellSize);
+    }
+
+    /**
+     * Returns a String representation of this WateringCan.
+     *
+     * @return description as a String
+     */
+    @Override
+    public String toString() {
+        return "WateringCan{" + "remainingUses=" + remainingUses + '}';
+    }
+
+    /**
+     * Compares this WateringCan object with another object for equality.
+     *
+     * @param object of Object
+     * @return boolean
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        if (!super.equals(object)) {
+            return false;
+        }
+        WateringCan that = (WateringCan) object;
+        return remainingUses == that.remainingUses;
+    }
+
+    /**
+     * Returns the hash code value for this WateringCan object.
+     *
+     * @return hashcode as an int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), remainingUses);
     }
 }

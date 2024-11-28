@@ -74,6 +74,15 @@ public final class Planted extends Decorator {
     }
 
     /**
+     * Returns current progress of seed.
+     *
+     * @return progress as a double
+     */
+    public double getProgress() {
+        return this.progress;
+    }
+
+    /**
      * Harvests crops when player interact with any item.
      * @param item of Item
      */
@@ -83,5 +92,43 @@ public final class Planted extends Decorator {
             soil.setDecorator(null);
             GameManager.getGameManager().getInventory().addItem(new Eggplant());
         }
+    }
+
+    /**
+     * Returns a String representation of this Planted.
+     *
+     * @return description as a String
+     */
+    @Override
+    public String toString() {
+        return "Planted{" + "progress=" + progress + ", seed=" + seed + ", soil=" + soil + '}';
+    }
+
+    /**
+     * Compares this Planted object with another object for equality.
+     *
+     * @param object of Object
+     * @return boolean
+     */
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        Planted planted = (Planted) object;
+        return Double.compare(progress, planted.progress) == 0 && Objects.equals(seed, planted.seed) && Objects.equals(soil, planted.soil);
+    }
+
+    /**
+     * Returns the hash code value for this Planted object.
+     *
+     * @return hashcode as an int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(progress, seed, soil);
     }
 }

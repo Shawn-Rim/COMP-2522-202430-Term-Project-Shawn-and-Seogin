@@ -1,6 +1,7 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * Represents an abstract class with functionality to interact with soil.
@@ -38,4 +39,45 @@ public abstract class Tool extends Item {
     }
 
     public abstract void useTool(Soil soil);
+
+    /**
+     * Returns a String representation of this Tool.
+     *
+     * @return description as a String
+     */
+    @Override
+    public String toString() {
+        return "Tool{" + "buyPrice=" + buyPrice + '}';
+    }
+
+    /**
+     * Compares this Tool object with another object for equality.
+     *
+     * @param object of Object
+     * @return boolean
+     */
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        if (!super.equals(object)) {
+            return false;
+        }
+        Tool tool = (Tool) object;
+        return Objects.equals(buyPrice, tool.buyPrice);
+    }
+
+    /**
+     * Returns the hash code value for this Tool object.
+     *
+     * @return hashcode as an int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), buyPrice);
+    }
 }

@@ -317,4 +317,47 @@ public final class Player extends Character {
     public void changeHand(final int index) {
         this.hand = this.inventory.getItem(index);
     }
+
+    /**
+     * Returns a String representation of this Player.
+     *
+     * @return description as a String
+     */
+    @Override
+    public String toString() {
+        return "Player{" + "currentFrame=" + currentFrame + ", money="
+                + money + ", view=" + view + ", hand=" + hand + ", frameIndex="
+                + frameIndex + ", lastFrameTime=" + lastFrameTime + '}';
+    }
+
+    /**
+     * Compares this Player object with another object for equality.
+     *
+     * @param object of Object
+     * @return boolean
+     */
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        if (!super.equals(object)) {
+            return false;
+        }
+        Player player = (Player) object;
+        return frameIndex == player.frameIndex && lastFrameTime == player.lastFrameTime && Objects.equals(currentFrame, player.currentFrame) && Objects.equals(money, player.money) && view == player.view && Objects.equals(hand, player.hand);
+    }
+
+    /**
+     * Returns the hash code value for this Player object.
+     *
+     * @return hashcode as an int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), currentFrame, money, view, hand, frameIndex, lastFrameTime);
+    }
 }

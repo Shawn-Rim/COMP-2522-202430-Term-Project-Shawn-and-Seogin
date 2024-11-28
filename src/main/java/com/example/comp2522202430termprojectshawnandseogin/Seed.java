@@ -1,6 +1,7 @@
 package com.example.comp2522202430termprojectshawnandseogin;
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * Abstract class, allowing seeds to be planted.
@@ -47,5 +48,30 @@ public abstract class Seed extends Tool {
             this.quantity--;
             soil.setDecorator(new Planted(this, soil));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Seed{" + "growthRate=" + growthRate + '}';
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        if (!super.equals(object)) {
+            return false;
+        }
+        Seed seed = (Seed) object;
+        return Double.compare(growthRate, seed.growthRate) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), growthRate);
     }
 }

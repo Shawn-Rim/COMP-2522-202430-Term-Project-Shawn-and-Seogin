@@ -3,6 +3,7 @@ package com.example.comp2522202430termprojectshawnandseogin;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents abstract class for grid elements, storing position, and size.
@@ -97,5 +98,45 @@ public abstract class Tile implements Serializable {
         if (this.decorator != null) {
             this.decorator.drawDecorator(gc, xCoordinate, yCoordinate, cellSize);
         }
+    }
+
+    /**
+     * Returns a String representation of this Tile.
+     *
+     * @return description as a String
+     */
+    @Override
+    public String toString() {
+        return "Tile{" + "decorator=" + decorator + ", xCoordinate="
+                + xCoordinate + ", yCoordinate=" + yCoordinate
+                + ", cellSize=" + cellSize + '}';
+    }
+
+    /**
+     * Compares this Tile object with another object for equality.
+     *
+     * @param object of Object
+     * @return boolean
+     */
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        Tile tile = (Tile) object;
+        return xCoordinate == tile.xCoordinate && yCoordinate == tile.yCoordinate && cellSize == tile.cellSize && Objects.equals(decorator, tile.decorator);
+    }
+
+    /**
+     * Returns the hash code value for this Tile object.
+     *
+     * @return hashcode as an int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(decorator, xCoordinate, yCoordinate, cellSize);
     }
 }
